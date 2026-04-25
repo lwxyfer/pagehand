@@ -565,7 +565,7 @@ export default function SidepanelApp() {
 
         {!activeState?.settings.apiKey ? (
           <div className="banner banner-inline">
-            还没有配置 DeepSeek。先去设置页填写 API Key。
+            还没有配置模型连接。先去设置页填写 API Key。
           </div>
         ) : null}
 

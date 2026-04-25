@@ -15,7 +15,7 @@ const callDeepSeek = async ({
   jsonMode: boolean
 }) => {
   if (!settings.apiKey.trim()) {
-    throw new Error("DeepSeek API key is required.")
+    throw new Error("Model API key is required.")
   }
 
   const response = await fetch(buildEndpoint(settings.baseUrl), {
@@ -39,18 +39,20 @@ const callDeepSeek = async ({
   try {
     payload = JSON.parse(text)
   } catch {
-    throw new Error(`DeepSeek returned a non-JSON response: ${text.slice(0, 280)}`)
+    throw new Error(`Model provider returned a non-JSON response: ${text.slice(0, 280)}`)
   }
 
   if (!response.ok) {
     const errorMessage =
-      payload?.error?.message || payload?.message || `DeepSeek request failed with status ${response.status}`
+      payload?.error?.message ||
+      payload?.message ||
+      `Model request failed with status ${response.status}`
     throw new Error(errorMessage)
   }
 
   const content = payload?.choices?.[0]?.message?.content
   if (!content || typeof content !== "string") {
-    throw new Error("DeepSeek returned an empty completion.")
+    throw new Error("Model provider returned an empty completion.")
   }
 
   return content

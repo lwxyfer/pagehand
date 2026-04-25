@@ -1,20 +1,22 @@
 # PageHand
 
 <p align="center">
-  <strong>An AI side panel for understanding the current page, generating page scripts, and replaying them automatically.</strong>
+  <strong>An AI side panel for injecting dynamic page scripts, reshaping any page on demand, and replaying those changes automatically.</strong>
 </p>
 
 <p align="center">
   <a href="https://github.com/lwxyfer/pagehand/releases"><img alt="Release" src="https://img.shields.io/github/v/release/lwxyfer/pagehand?display_name=tag"></a>
   <a href="https://github.com/lwxyfer/pagehand/blob/main/LICENCE"><img alt="License" src="https://img.shields.io/github/license/lwxyfer/pagehand"></a>
   <img alt="Chrome MV3" src="https://img.shields.io/badge/Chrome-MV3-4285F4">
-  <img alt="DeepSeek" src="https://img.shields.io/badge/Model-DeepSeek-1f6feb">
+  <img alt="OpenAI Compatible" src="https://img.shields.io/badge/API-OpenAI%20Compatible-1f6feb">
   <img alt="React" src="https://img.shields.io/badge/UI-React-61dafb">
 </p>
 
 PageHand turns the Chrome side panel into a lightweight page copilot.
 
-It can read the current page, answer questions about what is on screen, generate page-modification scripts from natural language, and keep those scripts running on future visits. It is built for people who want a practical AI browser tool, not just a chatbot living inside a sidebar.
+Its core superpower is dynamic page scripting: describe the change you want in natural language, let the model generate the script, execute it from chat, and keep it alive for future visits. It can also read the current page, answer questions about what is on screen, and replay matching scripts across revisit and SPA route changes.
+
+![PageHand demo](./public/demo.png)
 
 ## Why PageHand
 
@@ -23,21 +25,21 @@ Most browser AI tools stop at summarization.
 PageHand goes one step further:
 
 1. Read the current page context.
-2. Generate a useful answer or a runnable page script.
+2. Generate a runnable dynamic script for that page.
 3. Let you execute the script from chat.
 4. Persist the script and replay it automatically next time.
 
-That makes it useful for repeated personal workflows such as cleaning noisy pages, adding reading aids, highlighting actions, inserting helper UI, or tailoring internal tools for yourself.
+That means you are no longer limited to “ask questions about the page.” You can actively reshape the page: remove clutter, inject UI, highlight actions, add summaries, translate content, or customize internal tools for yourself without maintaining a separate userscript workflow by hand.
 
 ## Highlights
 
-- Chat with the current page instead of a blank LLM session.
-- Toggle search per message when you want extra context.
-- Switch into script mode to ask for page changes in plain language.
-- Execute generated scripts directly from the conversation.
+- Generate dynamic page scripts from natural language and execute them directly from chat.
+- Inject UI, remove sections, rewrite content, or alter page behavior without hand-writing code first.
 - Persist scripts by `path`, `exact`, or `domain` scope.
 - Run multiple scripts on the same page.
 - Re-apply matching scripts on SPA route changes.
+- Chat with the current page instead of a blank LLM session.
+- Toggle search per message when you want extra context.
 - Inspect effective scripts for the current page and enable or disable them quickly.
 - Use a compact chat-first UI with prompt library shortcuts.
 - Support `light`, `dark`, and `auto` themes.
@@ -48,7 +50,7 @@ That makes it useful for repeated personal workflows such as cleaning noisy page
 flowchart LR
   A["Current page"] --> B["Page context extractor"]
   B --> C["PageHand side panel"]
-  C --> D["DeepSeek"]
+  C --> D["OpenAI-compatible model API"]
   D --> C
   C --> E["Generated answer or script"]
   E --> F["Execute in current tab"]
@@ -81,6 +83,13 @@ Example prompts:
 - `把正文翻译成简体中文，但保留排版`
 
 The assistant returns a script card in chat. You choose a persistence scope and click `执行`.
+
+This is the heart of PageHand:
+
+- ask for a change in plain language
+- get back an executable script
+- inject it into the page instantly
+- keep that behavior on the next visit
 
 ### 3. Persistent page scripting
 
@@ -115,34 +124,31 @@ The side panel shows whether the current page already has matching scripts and l
 
 ## Installation
 
-### 1. Clone the repository
+### 1. Download the latest release package
 
-```bash
-git clone https://github.com/lwxyfer/pagehand.git
-cd pagehand
+Download the latest zip from:
+
+[https://github.com/lwxyfer/pagehand/releases/latest](https://github.com/lwxyfer/pagehand/releases/latest)
+
+Use the asset named like:
+
+```text
+pagehand-0.1.0-chrome.zip
 ```
 
-### 2. Install dependencies
+### 2. Extract the zip locally
 
-```bash
-npm install
-```
+Unzip the release package to any local folder you control.
 
-### 3. Build the extension
-
-```bash
-npm run build
-```
-
-### 4. Load the unpacked build
+### 3. Load the unpacked extension
 
 Open `chrome://extensions`, enable Developer Mode, and load:
 
 ```text
-build/chrome-mv3
+<your-extracted-folder>
 ```
 
-### 5. Enable User Scripts
+### 4. Enable User Scripts
 
 In the extension details page, turn on:
 
@@ -152,11 +158,13 @@ Allow User Scripts
 
 This is required for persistent script replay.
 
+![Enable User Scripts](./public/user-script.png)
+
 ## Quick Start
 
 1. Open a normal `http`, `https`, or `file` page.
 2. Open PageHand from the Chrome side panel.
-3. Open Settings and add your DeepSeek API key.
+3. Open Settings and add your model provider API key, base URL, and model name.
 4. Try a quick action such as `总结当前页面`.
 5. Turn on script mode and ask for a page modification.
 6. Choose a scope and click `执行`.
@@ -166,7 +174,7 @@ This is required for persistent script replay.
 
 The settings page includes:
 
-- DeepSeek API key
+- API key
 - Base URL
 - Model
 - Temperature
@@ -188,14 +196,29 @@ PageHand uses these core Chrome capabilities:
 
 Host permissions are limited to `http`, `https`, and `file` pages.
 
+## Model Support
+
+PageHand talks to an OpenAI-compatible chat completions endpoint.
+
+That means you are not locked to DeepSeek. You can point it at any compatible provider or self-hosted gateway that supports:
+
+- `POST /chat/completions`
+- bearer-token authentication
+- regular text completions
+- JSON-style responses for script generation
+
+DeepSeek is the default example because it works well for this workflow, but it is not the only supported model backend.
+
 ## Development
 
-Run local development:
+If you want to modify PageHand itself:
 
 ```bash
+git clone https://github.com/lwxyfer/pagehand.git
+cd pagehand
+npm install
 npm run dev
 ```
-
 Type-check the project:
 
 ```bash
@@ -221,7 +244,7 @@ src/
   app/
     sidepanel/            # chat-first side panel UI
     options/              # full settings page
-    deepseek.ts           # model integration
+    deepseek.ts           # OpenAI-compatible model integration
     page-context.ts       # current-page extraction
     prompts.ts            # analyze/script prompts
     runtime.ts            # userScripts registration and execution

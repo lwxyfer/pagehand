@@ -176,7 +176,7 @@ export default function OptionsApp() {
                 <p className="eyebrow">Settings</p>
                 <h1 className="title">PageHand 设置</h1>
                 <p className="subtitle">
-                  这里维护 DeepSeek 连接、默认持久化策略、模板库和站点级指令。首次使用前，也请在 Chrome 扩展详情页打开 “Allow User Scripts”。
+                  这里维护模型连接、默认持久化策略、模板库和站点级指令。首次使用前，也请在 Chrome 扩展详情页打开 “Allow User Scripts”。
                 </p>
               </div>
               <div className="button-row">
@@ -191,10 +191,10 @@ export default function OptionsApp() {
 
             <div className="grid two">
               <label className="field">
-                <span className="label">DeepSeek API Key</span>
+                <span className="label">API Key</span>
                 <input
                   className="input"
-                  aria-label="DeepSeek API Key"
+                  aria-label="API Key"
                   type="password"
                   value={settings.apiKey}
                   onChange={(event) => updateSettings("apiKey", event.target.value)}
@@ -294,7 +294,7 @@ export default function OptionsApp() {
                 className="ghost-button"
                 disabled={testing}
                 onClick={() => void testConnection()}>
-                {testing ? "测试中..." : "测试 DeepSeek 连接"}
+                {testing ? "测试中..." : "测试模型连接"}
               </button>
             </div>
           </div>
