@@ -1,19 +1,41 @@
-import { DEFAULT_SETTINGS } from "./constants"
-import { STORAGE_KEYS } from "./constants"
+import { DEFAULT_SETTINGS, LEGACY_STORAGE_KEYS, STORAGE_KEYS } from "./constants"
 import type { AISettings, PageScriptRule } from "./types"
 import { getHostname, matchesRuleForUrl } from "./url"
 
-const readLocal = async <T>(key: string, fallback: T): Promise<T> => {
+const readLocal = async <T>(key: string): Promise<T | undefined> => {
   const result = await chrome.storage.local.get(key)
-  return (result[key] as T | undefined) ?? fallback
+  return result[key] as T | undefined
 }
 
 const writeLocal = async <T>(key: string, value: T) => {
   await chrome.storage.local.set({ [key]: value })
 }
 
+const readWithLegacyFallback = async <T>(
+  primaryKey: string,
+  legacyKey: string,
+  fallback: T
+): Promise<T> => {
+  const primary = await readLocal<T>(primaryKey)
+  if (primary !== undefined) {
+    return primary
+  }
+
+  const legacy = await readLocal<T>(legacyKey)
+  if (legacy !== undefined) {
+    await writeLocal(primaryKey, legacy)
+    return legacy
+  }
+
+  return fallback
+}
+
 export const getSettings = async (): Promise<AISettings> => {
-  const stored = await readLocal<Partial<AISettings>>(STORAGE_KEYS.settings, {})
+  const stored = await readWithLegacyFallback<Partial<AISettings>>(
+    STORAGE_KEYS.settings,
+    LEGACY_STORAGE_KEYS.settings,
+    {}
+  )
   return {
     ...DEFAULT_SETTINGS,
     ...stored,
@@ -28,7 +50,11 @@ export const saveSettings = async (settings: AISettings) => {
 }
 
 export const getRules = async (): Promise<PageScriptRule[]> => {
-  return readLocal<PageScriptRule[]>(STORAGE_KEYS.rules, [])
+  return readWithLegacyFallback<PageScriptRule[]>(
+    STORAGE_KEYS.rules,
+    LEGACY_STORAGE_KEYS.rules,
+    []
+  )
 }
 
 export const saveRules = async (rules: PageScriptRule[]) => {

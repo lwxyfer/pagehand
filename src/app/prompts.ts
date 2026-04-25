@@ -69,7 +69,7 @@ export const buildAnalyzeMessages = ({
     {
       role: "system",
       content:
-        "You are AI Sidebar Hand, a current-page assistant. Answer using the current page context. Be concrete, concise, and mention when you infer from partial DOM context."
+        "You are PageHand, a current-page assistant. Answer using the current page context. Be concrete, concise, and mention when you infer from partial DOM context."
     },
     {
       role: "user",
@@ -106,7 +106,7 @@ export const buildScriptMessages = ({
     {
       role: "system",
       content: [
-        "You are AI Sidebar Hand, an expert page-modification assistant.",
+        "You are PageHand, an expert page-modification assistant.",
         "Return strict JSON only.",
         "The JSON shape must be:",
         '{"name":"string","scope":"exact|path|domain","world":"MAIN","runAt":"document_idle|document_end|document_start","summary":"string","code":"string"}',
@@ -115,7 +115,7 @@ export const buildScriptMessages = ({
         "- The code must be idempotent. Re-running it should not duplicate inserted UI.",
         "- Prefer querying robust selectors and fail silently when a node is absent.",
         "- Do not fetch remote code, do not use eval, and do not navigate away.",
-        "- If you insert nodes, tag them with data-ai-sidebar-hand.",
+        "- If you insert nodes, tag them with data-pagehand.",
         "- Make the script self-contained for the current page only."
       ].join("\n")
     },

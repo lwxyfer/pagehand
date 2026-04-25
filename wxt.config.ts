@@ -12,14 +12,14 @@ export default defineConfig({
   outDir: "build",
   manifest: {
     minimum_chrome_version: "135",
-    name: "AI Sidebar Hand",
-    short_name: "Sidebar Hand",
+    name: "PageHand",
+    short_name: "PageHand",
     description:
       "Analyze the current page and persist AI-generated page scripts for automatic replay.",
     default_locale: "en",
     version: "0.1.0",
     action: {
-      default_title: "Open AI Sidebar Hand"
+      default_title: "Open PageHand"
     },
     icons: {
       "16": "icon/16.png",

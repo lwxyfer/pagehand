@@ -540,7 +540,7 @@ export default function SidepanelApp() {
               <SparkIcon />
             </div>
             <div className="brand-copy">
-              <span className="brand-name">AI Sidebar Hand</span>
+              <span className="brand-name">PageHand</span>
               <span className="brand-context" title={currentTabLabel}>
                 {currentTabLabel}
               </span>

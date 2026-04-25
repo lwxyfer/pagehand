@@ -174,7 +174,7 @@ export default function OptionsApp() {
             <div className="header">
               <div>
                 <p className="eyebrow">Settings</p>
-                <h1 className="title">AI Sidebar Hand 设置</h1>
+                <h1 className="title">PageHand 设置</h1>
                 <p className="subtitle">
                   这里维护 DeepSeek 连接、默认持久化策略、模板库和站点级指令。首次使用前，也请在 Chrome 扩展详情页打开 “Allow User Scripts”。
                 </p>

@@ -1,12 +1,17 @@
 import type { AISettings, PromptTemplate } from "./types"
 
 export const STORAGE_KEYS = {
+  settings: "pagehand:settings",
+  rules: "pagehand:rules"
+} as const
+
+export const LEGACY_STORAGE_KEYS = {
   settings: "ai-sidebar-hand:settings",
   rules: "ai-sidebar-hand:rules"
 } as const
 
-export const SCRIPT_EVENT_NAME = "ai-sidebar-hand:script-status"
-export const RULE_ID_PREFIX = "ai-sidebar-hand:"
+export const SCRIPT_EVENT_NAME = "pagehand:script-status"
+export const RULE_ID_PREFIX = "pagehand:"
 
 export const DEFAULT_TEMPLATES: PromptTemplate[] = [
   {
