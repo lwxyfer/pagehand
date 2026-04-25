@@ -1,0 +1,267 @@
+# PageHand
+
+PageHand is a Chrome side panel assistant that can:
+
+- analyze the current page with AI
+- generate page-modification scripts from natural language
+- persist scripts and auto-run them on matching pages
+- keep working across SPA route changes
+
+It is designed for personal workflows, fast iteration, and browser-native page customization.
+
+## What It Does
+
+- Chat with the current page
+- Generate scripts to modify the page
+- Execute scripts manually, then cache them for future visits
+- Auto-run matching scripts on revisit
+- Support multiple scripts on the same page
+- Re-run scripts on SPA route changes
+- Show active scripts for the current page
+- Enable, disable, or run scripts from the side panel
+- Use quick actions like `总结当前页面`
+- Render assistant messages as Markdown
+- Support `light`, `dark`, and `auto` themes
+
+## Why This Exists
+
+Most AI browser assistants are good at answering questions, but weak at actually changing the page.
+
+PageHand focuses on a narrower workflow:
+
+1. understand the current page
+2. generate code for that page
+3. let you execute and persist the result
+4. replay it automatically next time
+
+## Key Features
+
+### 1. Current-Page AI Assistant
+
+The side panel reads the current page context and answers questions about the page itself.
+
+Examples:
+
+- summarize this page
+- extract key facts
+- identify the next best action
+- explain the structure of this page
+
+### 2. Script Generation Mode
+
+Switch to script mode and ask for changes in plain language.
+
+Examples:
+
+- remove distracting sections and focus on the article
+- add a summary card below the title
+- highlight important actions
+- clean up the layout for reading
+
+Generated scripts are shown in chat, and you can choose a scope before executing:
+
+- `path`
+- `exact`
+- `domain`
+
+### 3. Script Persistence
+
+After execution, scripts are stored locally and registered with `chrome.userScripts`.
+
+That means:
+
+- revisit the same page and it runs again
+- reuse site-level rules
+- keep several scripts active on the same page
+
+### 4. SPA Support
+
+For single-page apps, route changes are detected and matching scripts are re-run automatically.
+
+### 5. Active Script Controls
+
+The side panel can show scripts currently matching the page and lets you:
+
+- inspect effective status
+- run a script immediately
+- enable or disable a script
+
+## Tech Stack
+
+- React
+- TypeScript
+- WXT
+- Chrome Manifest V3
+- `chrome.sidePanel`
+- `chrome.userScripts`
+- `chrome.scripting`
+- DeepSeek API
+
+## Requirements
+
+- Chrome 135+ or another recent Chromium browser with side panel support
+- `Allow User Scripts` enabled for the extension
+- A DeepSeek API key
+
+## Installation
+
+### 1. Clone
+
+```bash
+git clone <your-repo-url>
+cd ai-sidebar-hand
+```
+
+### 2. Install
+
+```bash
+npm install
+```
+
+### 3. Build
+
+```bash
+npm run build
+```
+
+### 4. Load the extension
+
+Open `chrome://extensions`, enable Developer Mode, and load:
+
+```text
+build/chrome-mv3
+```
+
+### 5. Enable User Scripts
+
+In the extension details page, turn on:
+
+```text
+Allow User Scripts
+```
+
+This is required for script persistence and automatic replay.
+
+## Quick Start
+
+1. Open any normal `http`, `https`, or `file` page
+2. Open the side panel
+3. Configure your DeepSeek API key in Settings
+4. Try a quick action like `总结当前页面`
+5. Switch to script mode and generate a page script
+6. Pick a scope and click `执行`
+
+## Settings
+
+The settings page includes:
+
+- DeepSeek API key
+- Base URL
+- Model
+- Temperature
+- Max tokens
+- Theme mode: `light` / `dark` / `auto`
+- Default script scope
+- Prompt Library
+- Site-specific instructions
+
+## Development
+
+Run dev mode:
+
+```bash
+npm run dev
+```
+
+Type check:
+
+```bash
+npm run compile
+```
+
+Build production bundle:
+
+```bash
+npm run build
+```
+
+## Project Structure
+
+```text
+src/
+  app/
+    sidepanel/         # main chat UI
+    options/           # settings page
+    storage.ts         # local storage for settings and rules
+    runtime.ts         # userScripts registration and execution
+    page-context.ts    # page extraction
+    deepseek.ts        # model calls
+    prompts.ts         # prompt construction
+  app-entries/
+    background.ts      # background orchestration
+    page-bridge.content.ts
+    sidepanel/
+    options/
+```
+
+## How Scripts Work
+
+1. The extension extracts the current page context
+2. The prompt is sent to DeepSeek
+3. The model returns a script draft
+4. You choose scope and execute it
+5. The script is stored locally
+6. Matching pages auto-run it later
+7. SPA route changes trigger matching scripts again
+
+## Current Limitations
+
+- Chrome internal pages like `chrome://` are not supported
+- Disabling an already executed arbitrary script cannot be fully reversed without page reload in the general case
+- Script quality depends on the target page structure and the generated code
+- This project is currently optimized for Chromium, not Firefox
+
+## Security Notes
+
+- Scripts are generated by AI and executed in the browser
+- This project is intended for self-use, experimentation, and controlled environments
+- Avoid using script generation on sensitive pages such as banking, payment, or admin systems
+
+## Privacy
+
+- Settings and script rules are stored locally in browser storage
+- Page content is sent to the configured AI endpoint when you ask for analysis or script generation
+- The project does not require any hosted backend to function
+
+## Naming
+
+Current recommended public name:
+
+**PageHand**
+
+Why this one:
+
+- short
+- easy to pronounce
+- easy to remember
+- fits both “page assistant” and “page manipulation”
+
+Other solid options:
+
+- `PagePatch`
+- `PageMate`
+- `TabHand`
+- `SidePatch`
+- `PagePilot`
+
+## Roadmap Ideas
+
+- reversible runtime for no-refresh disable
+- grouped script management
+- script conflict inspection
+- better script diff and safety review
+- import/export rules
+
+## License
+
+MIT

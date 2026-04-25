@@ -1,0 +1,25 @@
+{
+  "extends": "./.wxt/tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "types": [
+      "chrome",
+      "wxt/client"
+    ]
+  },
+  "include": [
+    ".wxt/wxt.d.ts",
+    ".wxt/types/**/*.d.ts",
+    "wxt.config.ts",
+    "src/app/**/*",
+    "src/app-entries/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

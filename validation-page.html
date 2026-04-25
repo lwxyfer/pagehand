@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Sidebar Hand Validation Page</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "SF Pro Text", "PingFang SC", sans-serif;
+        background: linear-gradient(180deg, #f7f4ef 0%, #ece7dd 100%);
+        color: #1f2937;
+      }
+
+      .page {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 48px 24px 96px;
+      }
+
+      .hero {
+        background: rgba(255, 255, 255, 0.88);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 28px;
+        padding: 32px;
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+      }
+
+      h1 {
+        margin: 0 0 16px;
+        font-size: 42px;
+        line-height: 1.05;
+      }
+
+      .lede {
+        font-size: 18px;
+        line-height: 1.7;
+        color: #475569;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+        margin-top: 28px;
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.84);
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        border-radius: 22px;
+        padding: 24px;
+      }
+
+      .promo {
+        background: linear-gradient(180deg, #111827 0%, #0f172a 100%);
+        color: white;
+      }
+
+      .promo h2 {
+        margin-top: 0;
+      }
+
+      .cta {
+        display: inline-block;
+        margin-top: 16px;
+        padding: 12px 18px;
+        border-radius: 999px;
+        background: #f59e0b;
+        color: #111827;
+        text-decoration: none;
+        font-weight: 700;
+      }
+
+      .points li {
+        margin-bottom: 10px;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <h1>AI Sidebar Hand 验证页</h1>
+        <p class="lede">
+          这个页面用于验证侧边栏插件是否可以分析当前 DOM、调用模型生成脚本、即时修改页面，并在刷新之后自动重复执行。
+        </p>
+
+        <div class="grid">
+          <article class="card" id="main-article">
+            <h2>待分析正文</h2>
+            <p>
+              这是一段示例正文。为了让验证足够明显，页面里故意放了一个显眼的推广卡片，以及一段适合被总结的主文本。
+            </p>
+            <ul class="points">
+              <li>插件应能识别标题、正文、按钮和链接。</li>
+              <li>脚本模式应能插入摘要卡片或移除推广区域。</li>
+              <li>刷新页面后，已缓存规则应自动执行。</li>
+            </ul>
+          </article>
+
+          <aside class="card promo" id="promo-card">
+            <h2>推广卡片</h2>
+            <p>这里是一个特意放出来的“干扰项”，适合拿来测试删除、隐藏或替换样式。</p>
+            <a class="cta" href="#buy-now">立即购买</a>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </body>
+  </html>
