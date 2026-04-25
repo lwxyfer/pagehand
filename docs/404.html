@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — PageHand</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" sizes="128x128" href="assets/images/favicon-128.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .error-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--hero-gradient);
+    }
+    .error-code {
+      font-size: 72px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin: 0 0 16px;
+    }
+    .error-message {
+      font-size: 18px;
+      color: var(--muted);
+      margin: 0 0 32px;
+    }
+  </style>
+</head>
+<body>
+  <div class="error-page">
+    <div class="hero-orb">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2.5 14.2 9l6.3 2.2-6.3 2.1L12 20l-2.2-6.7-6.3-2.1L9.8 9 12 2.5Z" fill="currentColor"/>
+      </svg>
+    </div>
+    <h1 class="error-code">404</h1>
+    <p class="error-message">This page doesn't exist.</p>
+    <a href="index.html" class="hero-cta">Back to PageHand</a>
+  </div>
+
+  <script>
+    (function() {
+      const html = document.documentElement;
+      const stored = localStorage.getItem('pagehand:landing-theme');
+      const theme = stored === 'light' || stored === 'dark' ? stored
+        : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      html.setAttribute('data-theme', theme);
+    })();
+  </script>
+</body>
+</html>

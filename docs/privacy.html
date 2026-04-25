@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy — PageHand</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" sizes="128x128" href="assets/images/favicon-128.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2.5 14.2 9l6.3 2.2-6.3 2.1L12 20l-2.2-6.7-6.3-2.1L9.8 9 12 2.5Z" fill="currentColor"/>
+        </svg>
+        PageHand
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="https://github.com/lwxyfer/pagehand" class="nav-link" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="section">
+    <div class="container" style="max-width:720px">
+      <p class="section-label">Privacy</p>
+      <h1 class="section-title">Privacy Policy</h1>
+      <p class="section-subtitle" style="margin-bottom:32px">Last updated: April 2026</p>
+
+      <div style="font-size:15px;line-height:1.7;color:var(--text)">
+        <p>PageHand is designed with privacy as a core principle. This policy explains what data is collected, how it is used, and what control you have.</p>
+
+        <h3 style="margin:28px 0 12px;font-size:17px">Data Storage</h3>
+        <ul style="padding-left:18px;line-height:1.8">
+          <li>All settings (API key, model configuration, theme, prompt templates) are stored locally in <code>chrome.storage.local</code>.</li>
+          <li>All generated script rules are stored locally in <code>chrome.storage.local</code>.</li>
+          <li>No data is synced to a remote server, cloud account, or third-party service.</li>
+          <li>PageHand does not require a hosted backend to function.</li>
+        </ul>
+
+        <h3 style="margin:28px 0 12px;font-size:17px">Data Sent to AI Providers</h3>
+        <ul style="padding-left:18px;line-height:1.8">
+          <li>Current page content is sent to the configured AI endpoint <strong>only when you explicitly</strong> ask for analysis or script generation.</li>
+          <li>This includes: page title, URL, visible text content, headings, buttons, links, and form structure.</li>
+          <li>The data is sent to the endpoint you configure (e.g., DeepSeek, OpenAI, or a self-hosted gateway).</li>
+          <li>PageHand does not control what the AI provider does with the data after receipt. Review your provider's privacy policy.</li>
+        </ul>
+
+        <h3 style="margin:28px 0 12px;font-size:17px">Permissions</h3>
+        <ul style="padding-left:18px;line-height:1.8">
+          <li><strong>sidePanel</strong> — Required to display the chat UI in Chrome's side panel.</li>
+          <li><strong>storage</strong> — Required to persist settings and script rules locally.</li>
+          <li><strong>tabs / activeTab</strong> — Required to read the current tab's URL and title for page context.</li>
+          <li><strong>scripting</strong> — Required to inject the page bridge content script for context extraction.</li>
+          <li><strong>userScripts</strong> — Required to register generated scripts for automatic replay.</li>
+          <li><strong>Host permissions</strong> (<code>http://*/*</code>, <code>https://*/*</code>, <code>file://*/*</code>) — Required to read page context and execute scripts on those pages.</li>
+        </ul>
+
+        <h3 style="margin:28px 0 12px;font-size:17px">Third-Party Services</h3>
+        <ul style="padding-left:18px;line-height:1.8">
+          <li><strong>AI Model API</strong> — The endpoint you configure. Required for chat and script generation.</li>
+          <li><strong>DuckDuckGo Instant Answer API</strong> — Optional. Used only when you enable search per message.</li>
+          <li><strong>GitHub</strong> — The extension is distributed via GitHub Releases. No data is sent to GitHub during normal use.</li>
+        </ul>
+
+        <h3 style="margin:28px 0 12px;font-size:17px">Your Control</h3>
+        <ul style="padding-left:18px;line-height:1.8">
+          <li>You can view, enable, or disable any script rule from the side panel or settings page.</li>
+          <li>You can delete individual rules or clear all extension data from <code>chrome://extensions</code>.</li>
+          <li>Uninstalling the extension removes all locally stored data.</li>
+          <li>No telemetry, analytics, or crash reporting is built into the extension.</li>
+        </ul>
+
+        <h3 style="margin:28px 0 12px;font-size:17px">Changes</h3>
+        <p>This privacy policy may be updated occasionally. Changes will be reflected on this page with an updated date.</p>
+
+        <h3 style="margin:28px 0 12px;font-size:17px">Contact</h3>
+        <p>For questions about this policy, open an issue on the <a href="https://github.com/lwxyfer/pagehand" target="_blank" rel="noreferrer">GitHub repository</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/lwxyfer/pagehand" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="index.html">Home</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 PageHand &middot; MIT License</p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const STORAGE_KEY = 'pagehand:landing-theme';
+      const html = document.documentElement;
+      function getPreferredTheme() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored === 'light' || stored === 'dark') return stored;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      html.setAttribute('data-theme', getPreferredTheme());
+    })();
+  </script>
+
+</body>
+</html>

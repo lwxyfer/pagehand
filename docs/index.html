@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PageHand — AI side panel for dynamic page scripting</title>
+  <meta name="description" content="PageHand turns the Chrome side panel into a lightweight page copilot. Generate dynamic page scripts from natural language, execute them from chat, and replay automatically.">
+  <meta property="og:title" content="PageHand — AI side panel for dynamic page scripting">
+  <meta property="og:description" content="Generate dynamic page scripts from natural language and replay them automatically. A Chrome side panel copilot.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://lwxyfer.github.io/pagehand">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" sizes="128x128" href="assets/images/favicon-128.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ======== Nav ======== -->
+  <nav class="nav">
+    <div class="container">
+      <a href="#" class="nav-brand">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2.5 14.2 9l6.3 2.2-6.3 2.1L12 20l-2.2-6.7-6.3-2.1L9.8 9 12 2.5Z" fill="currentColor"/>
+        </svg>
+        PageHand
+      </a>
+      <div class="nav-links">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#install" class="nav-link">Install</a>
+        <a href="https://github.com/lwxyfer/pagehand" class="nav-link" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <svg id="themeIcon" viewBox="0 0 24 24" aria-hidden="true">
+            <!-- Sun -->
+            <path id="sunIcon" d="M12 4.5a.75.75 0 0 1 .75.75v1a.75.75 0 0 1-1.5 0v-1A.75.75 0 0 1 12 4.5Zm5.66 3.34a.75.75 0 0 1 0 1.06l-.7.7a.75.75 0 0 1-1.06-1.06l.7-.7a.75.75 0 0 1 1.06 0ZM19.5 12a.75.75 0 0 1-.75.75h-1a.75.75 0 0 1 0-1.5h1a.75.75 0 0 1 .75.75Zm-2.54 4.46a.75.75 0 0 1-1.06 0l-.7-.7a.75.75 0 0 1 1.06-1.06l.7.7a.75.75 0 0 1 0 1.06ZM12 18.75a.75.75 0 0 1 .75.75v1a.75.75 0 0 1-1.5 0v-1a.75.75 0 0 1 .75-.75Zm-4.46-2.54a.75.75 0 0 1-1.06 0l-.7-.7a.75.75 0 0 1 1.06-1.06l.7.7a.75.75 0 0 1 0 1.06ZM5.25 12a.75.75 0 0 1-.75.75h-1a.75.75 0 0 1 0-1.5h1a.75.75 0 0 1 .75.75Zm2.54-4.46a.75.75 0 0 1 0 1.06l-.7.7a.75.75 0 0 1-1.06-1.06l.7-.7a.75.75 0 0 1 1.06 0ZM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z" fill="currentColor"/>
+            <!-- Moon -->
+            <path id="moonIcon" d="M12 3.75a8.25 8.25 0 1 0 8.75 9.94.75.75 0 0 0-1.04-.85 6.05 6.05 0 0 1-2.46.5 6.02 6.02 0 0 1-5.48-8.58.75.75 0 0 0-.64-1.07 8.5 8.5 0 0 0-.64-.02l.41.08Z" fill="currentColor" display="none"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ======== Hero ======== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-orb">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2.5 14.2 9l6.3 2.2-6.3 2.1L12 20l-2.2-6.7-6.3-2.1L9.8 9 12 2.5Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <h1>PageHand</h1>
+      <p class="hero-tagline">An AI side panel for injecting dynamic page scripts, reshaping any page on demand, and replaying those changes automatically.</p>
+      <a href="https://github.com/lwxyfer/pagehand/releases/latest" class="hero-cta" target="_blank" rel="noreferrer">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14l-5-5 1.41-1.41L11 13.17l7.59-7.59L20 7l-9 9z" fill="currentColor"/></svg>
+        Download Latest Release
+      </a>
+      <span class="hero-sub-cta">Free &amp; open source &middot; <a href="#install">4-step install</a></span>
+
+      <div class="badge-bar">
+        <span class="badge">Chrome MV3</span>
+        <span class="badge">OpenAI Compatible</span>
+        <span class="badge">React 18</span>
+        <span class="badge">TypeScript</span>
+        <span class="badge">WXT Framework</span>
+        <span class="badge">MIT License</span>
+      </div>
+
+      <div class="hero-screenshot">
+        <picture>
+          <source srcset="assets/images/demo.webp" type="image/webp">
+          <img src="assets/images/demo.webp" alt="PageHand side panel showing chat interface and generated script" width="1600" height="1190" loading="eager">
+        </picture>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Why PageHand ======== -->
+  <section class="section" id="why">
+    <div class="container">
+      <p class="section-label">Why PageHand</p>
+      <h2 class="section-title">Most browser AI tools stop at summarization.</h2>
+      <p class="section-subtitle">PageHand goes one step further: read the page, generate a runnable script, execute it from chat, and persist it for automatic replay.</p>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <div class="step-body">
+            <h3>Read the current page context</h3>
+            <p>PageHand extracts the page structure, content, and interactive elements so the model knows exactly what's on screen.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <div class="step-body">
+            <h3>Generate a runnable script</h3>
+            <p>Describe the change in natural language. The model generates a self-contained JavaScript snippet tailored to that page.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <div class="step-body">
+            <h3>Execute from chat</h3>
+            <p>Review the generated code, choose a persistence scope (exact URL, path, or domain), and inject it into the page instantly.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <div class="step-body">
+            <h3>Persist &amp; replay automatically</h3>
+            <p>The rule is saved locally and registered with <code class="inline-code">chrome.userScripts</code>. It runs automatically on revisit — even across SPA route changes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Highlights ======== -->
+  <section class="section" id="features">
+    <div class="container">
+      <p class="section-label">Highlights</p>
+      <h2 class="section-title">What makes PageHand different</h2>
+      <p class="section-subtitle">From natural language to persistent page automation in one flow.</p>
+
+      <div class="grid-2">
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div>
+            <h4>Dynamic page scripts from natural language</h4>
+            <p>Generate and execute page-modifying scripts without hand-writing code.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div>
+            <h4>Inject UI, remove sections, rewrite content</h4>
+            <p>Reshape any page on demand — declutter, translate, highlight, or insert custom elements.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div>
+            <h4>Persist by <code class="inline-code">path</code>, <code class="inline-code">exact</code>, or <code class="inline-code">domain</code></h4>
+            <p>Choose the scope that matches your workflow — from a single URL to an entire site.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div>
+            <h4>Multiple scripts per page</h4>
+            <p>Layer multiple rules on the same page. Each runs independently in order.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div>
+            <h4>SPA-aware replay</h4>
+            <p>Listens for route transitions in single-page applications and re-runs matching rules automatically.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div>
+            <h4>Chat with the current page</h4>
+            <p>Ask questions about what's on screen instead of starting from a blank LLM session.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div>
+            <h4>Toggle search per message</h4>
+            <p>Get extra context from DuckDuckGo when you need it, without cluttering every request.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div>
+            <h4>Active rule inspector</h4>
+            <p>See which scripts apply to the current page and enable or disable them instantly.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div>
+            <h4>Prompt library shortcuts</h4>
+            <p>Save your most-used prompts for quick reuse — clean layout, translate, highlight, and more.</p>
+          </div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div>
+            <h4>Light, dark, and auto themes</h4>
+            <p>Matches your system preference or lets you choose manually.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== How It Works ======== -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">How It Works</p>
+      <h2 class="section-title">From page to script in one cycle</h2>
+      <p class="section-subtitle">PageHand orchestrates a tight loop between the browser, the model, and your page.</p>
+
+      <div class="flow-grid">
+        <div class="flow-node">
+          <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm11 0h7v7h-7v-7z" fill="currentColor"/></svg>
+          Current page
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node">
+          <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/></svg>
+          Page context extractor
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node">
+          <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" fill="currentColor"/></svg>
+          PageHand side panel
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node">
+          <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 14.2 9l6.3 2.2-6.3 2.1L12 20l-2.2-6.7-6.3-2.1L9.8 9 12 2.5Z" fill="currentColor"/></svg>
+          AI model API
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node">
+          <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          Answer or script
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node">
+          <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5v11l9-5.5-9-5.5Z" fill="currentColor"/></svg>
+          Execute in tab
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node">
+          <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v3h-3v2h3v3h2v-3h3V9h-3V6zm-10 7H8v5H6V6h5.07a7 7 0 0 0 0 7H11z" fill="currentColor"/></svg>
+          Persist rule
+        </div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-node">
+          <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5a7 7 0 0 1 6.41 4.2H16v1.5h5V5.7h-1.5v2.38A8.5 8.5 0 1 0 20.5 12H19a7 7 0 1 1-7-7Z" fill="currentColor"/></svg>
+          Auto-run on revisit
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Core Capabilities ======== -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Core Capabilities</p>
+      <h2 class="section-title">Five features that work together</h2>
+      <p class="section-subtitle">Each capability builds on the one before it — from simple Q&A to persistent page automation.</p>
+
+      <div class="capability-grid">
+        <div class="cap-card">
+          <h3>1. Current-page assistant</h3>
+          <p>PageHand answers with awareness of the active tab. Ask about what's on screen, extract key information, or analyze the page structure.</p>
+          <ul>
+            <li>Summarize the current page</li>
+            <li>Extract facts and data</li>
+            <li>Identify next actions</li>
+          </ul>
+        </div>
+        <div class="cap-card">
+          <h3>2. Script generation mode</h3>
+          <p>Enable script mode to modify the page instead of only answering. The model returns a runnable script with a summary and execution controls.</p>
+          <ul>
+            <li>Remove ads and clutter</li>
+            <li>Insert summary cards</li>
+            <li>Highlight key CTAs</li>
+            <li>Translate content in place</li>
+          </ul>
+        </div>
+        <div class="cap-card">
+          <h3>3. Persistent page scripting</h3>
+          <p>After execution, scripts are stored locally and registered with <code class="inline-code">chrome.userScripts</code>. They replay automatically on revisit.</p>
+          <ul>
+            <li>Automatic replay on revisit</li>
+            <li>Reusable site rules</li>
+            <li>Layered rules on the same page</li>
+            <li>No re-prompting needed</li>
+          </ul>
+        </div>
+        <div class="cap-card">
+          <h3>4. SPA-aware replay</h3>
+          <p>For single-page applications, PageHand listens for route transitions and re-runs matching rules when the URL changes.</p>
+          <ul>
+            <li>Monitors pushState/replaceState</li>
+            <li>Handles popstate and hashchange</li>
+            <li>Zero-config for most SPAs</li>
+          </ul>
+        </div>
+        <div class="cap-card">
+          <h3>5. Active rule visibility</h3>
+          <p>The side panel shows whether the current page has matching scripts and lets you manage them on the spot.</p>
+          <ul>
+            <li>Inspect effective status</li>
+            <li>Run a rule immediately</li>
+            <li>Enable or disable with one click</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Product Principles ======== -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Product Principles</p>
+      <h2 class="section-title">Designed for real workflows</h2>
+      <p class="section-subtitle">Every decision in PageHand is guided by these principles.</p>
+
+      <div class="principles">
+        <div class="principle-card">
+          <h3>Chat-first</h3>
+          <p>The side panel should feel like a normal assistant — not a developer console.</p>
+        </div>
+        <div class="principle-card">
+          <h3>Minimal friction</h3>
+          <p>Search and script mode are simple toggles next to send. No modal dialogs, no complex setup.</p>
+        </div>
+        <div class="principle-card">
+          <h3>Personal automation</h3>
+          <p>Generated scripts are for self-use and repeated workflows. You own the rules you create.</p>
+        </div>
+        <div class="principle-card">
+          <h3>Local ownership</h3>
+          <p>Settings and rules live in browser storage. No account, no cloud sync, no telemetry.</p>
+        </div>
+        <div class="principle-card">
+          <h3>Fast iteration</h3>
+          <p>Generate, execute, refine, and keep the result. The feedback loop is seconds, not minutes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Installation ======== -->
+  <section class="section" id="install">
+    <div class="container">
+      <p class="section-label">Installation</p>
+      <h2 class="section-title">Get started in 4 steps</h2>
+      <p class="section-subtitle">PageHand is a Chrome extension sideloaded from the latest release. No store listing required.</p>
+
+      <div class="install-steps">
+        <div class="install-step">
+          <span class="install-step-num">1</span>
+          <div class="install-step-body">
+            <h3>Download the latest release</h3>
+            <p>Download the <code>pagehand-*-chrome.zip</code> asset from <a href="https://github.com/lwxyfer/pagehand/releases/latest" target="_blank" rel="noreferrer">the latest release</a> on GitHub.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <span class="install-step-num">2</span>
+          <div class="install-step-body">
+            <h3>Extract the zip</h3>
+            <p>Unzip to any folder on your machine that you can keep in place.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <span class="install-step-num">3</span>
+          <div class="install-step-body">
+            <h3>Load as unpacked extension</h3>
+            <p>Open <code>chrome://extensions</code>, enable <strong>Developer Mode</strong>, and click <strong>Load unpacked</strong>. Select the extracted folder.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <span class="install-step-num">4</span>
+          <div class="install-step-body">
+            <h3>Enable User Scripts</h3>
+            <p>In the extension details page, toggle <strong>Allow User Scripts</strong> on. This is required for persistent script replay.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="install-screenshot">
+        <picture>
+          <source srcset="assets/images/user-script.webp" type="image/webp">
+          <img src="assets/images/user-script.webp" alt="Chrome extension details with Allow User Scripts toggle highlighted" width="1200" height="1033" loading="lazy">
+        </picture>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Quick Start ======== -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Quick Start</p>
+      <h2 class="section-title">From install to first script</h2>
+      <p class="section-subtitle">Once loaded, getting started takes seconds.</p>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <div class="step-body">
+            <h3>Open a normal page</h3>
+            <p>Any <code>http</code>, <code>https</code>, or <code>file</code> page works.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <div class="step-body">
+            <h3>Open PageHand from the Chrome side panel</h3>
+            <p>Click the PageHand toolbar icon or navigate to the side panel via Chrome's side panel menu.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <div class="step-body">
+            <h3>Configure your model provider</h3>
+            <p>Open Settings and enter your API key, base URL, and model name. Any OpenAI-compatible endpoint works.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <div class="step-body">
+            <h3>Try a quick action</h3>
+            <p>Click a pre-built action like "Summarize this page" or type your own question. Turn on script mode to generate a page modification.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">5</span>
+          <div class="step-body">
+            <h3>Execute, revisit, and refine</h3>
+            <p>Choose a scope (path, exact, or domain), click execute, and revisit the page to confirm the script auto-runs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Model Support ======== -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Model Support</p>
+      <h2 class="section-title">Any OpenAI-compatible endpoint</h2>
+      <p class="section-subtitle">You are not locked to a specific provider. Point PageHand at any compatible API that supports chat completions.</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Default configuration</h3>
+          <p style="margin-bottom:12px">DeepSeek is the default example, but any provider works.</p>
+          <pre><code>Base URL: https://api.deepseek.com/v1
+Model:    deepseek-chat
+API Key:  sk-...</code></pre>
+        </div>
+        <div class="card">
+          <h3>Requirements</h3>
+          <ul style="padding-left:18px;margin:0;font-size:14px;color:var(--muted);line-height:1.8">
+            <li><code>POST /chat/completions</code> endpoint</li>
+            <li>Bearer-token authentication</li>
+            <li>Regular text + JSON response support</li>
+            <li>Works with self-hosted gateways</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Configuration ======== -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Configuration</p>
+      <h2 class="section-title">Full control from the settings page</h2>
+      <p class="section-subtitle">Every aspect of PageHand is configurable through the options page.</p>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Connection</h3>
+          <p>API key, base URL, model name, temperature, and max tokens. Test your connection before saving.</p>
+        </div>
+        <div class="card">
+          <h3>Behavior</h3>
+          <p>Default script scope (exact, path, or domain), search toggle, and theme mode (light, dark, auto).</p>
+        </div>
+        <div class="card">
+          <h3>Customization</h3>
+          <p>Prompt library for reusable templates and site-specific instructions that apply automatically per hostname.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Development ======== -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Development</p>
+      <h2 class="section-title">Build from source</h2>
+      <p class="section-subtitle">PageHand is open source. Clone the repo and start hacking.</p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Setup</h3>
+          <pre><code>git clone https://github.com/lwxyfer/pagehand.git
+cd pagehand
+npm install
+npm run dev</code></pre>
+        </div>
+        <div class="card">
+          <h3>Build &amp; Package</h3>
+          <pre><code># Type-check
+npm run compile
+
+# Production build
+npm run build
+
+# Distributable zip
+npm run zip</code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Permissions & Privacy ======== -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Permissions &amp; Privacy</p>
+      <h2 class="section-title">Transparent by design</h2>
+      <p class="section-subtitle">PageHand uses only the Chrome APIs it needs, and your data stays local.</p>
+
+      <div class="permissions-grid">
+        <div class="permission-item">
+          <code>sidePanel</code>
+          <p>Chat UI in the Chrome side panel.</p>
+        </div>
+        <div class="permission-item">
+          <code>storage</code>
+          <p>Settings and persistent rules stored locally.</p>
+        </div>
+        <div class="permission-item">
+          <code>tabs</code>
+          <p>Current-tab awareness for page context.</p>
+        </div>
+        <div class="permission-item">
+          <code>scripting</code>
+          <p>Inject the page bridge for context extraction.</p>
+        </div>
+        <div class="permission-item">
+          <code>userScripts</code>
+          <p>Persist and replay generated page scripts.</p>
+        </div>
+      </div>
+
+      <div class="box box-info mt-24">
+        <h4>Privacy</h4>
+        <p>Settings and script rules are stored exclusively in browser storage. Current page content is sent to the configured AI endpoint only when you explicitly ask for analysis or script generation. PageHand does not require a hosted backend to function.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Use Cases ======== -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Use Cases</p>
+      <h2 class="section-title">What you can do with PageHand</h2>
+      <p class="section-subtitle">Real workflows that benefit from persistent page scripting.</p>
+
+      <div class="grid-3">
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div><p>Clean cluttered articles and focus on the main content.</p></div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div><p>Add custom reading aids to documentation pages.</p></div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div><p>Highlight internal workflow steps on dashboards.</p></div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div><p>Insert summaries or action cards into repeated work pages.</p></div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div><p>Build lightweight augmentations for SaaS tools without userscripts.</p></div>
+        </div>
+        <div class="highlight-item">
+          <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
+          <div><p>Translate page content while preserving layout.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Limitations & Safety ======== -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Limitations &amp; Safety</p>
+      <h2 class="section-title">What to know before using</h2>
+      <p class="section-subtitle">PageHand is a powerful tool. Use it responsibly.</p>
+
+      <div class="grid-2">
+        <div class="box box-info">
+          <h4>Limitations</h4>
+          <p>Chrome internal pages (chrome://) are not supported. Script side effects cannot always be reversed without reloading. Script quality depends on the target DOM and generated code. Currently Chromium-only.</p>
+        </div>
+        <div class="box box-warning">
+          <h4>Safety Notes</h4>
+          <p>Generated scripts are code and should be treated seriously. Avoid script generation on sensitive pages — banking, payment, identity, or production admin systems. Intended for self-use in controlled environments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Footer ======== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-links">
+        <a href="https://github.com/lwxyfer/pagehand" target="_blank" rel="noreferrer">GitHub</a>
+        <a href="https://github.com/lwxyfer/pagehand/releases/latest" target="_blank" rel="noreferrer">Releases</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="https://github.com/lwxyfer/pagehand/blob/main/LICENCE" target="_blank" rel="noreferrer">License</a>
+      </div>
+      <p class="footer-copy">
+        &copy; 2026 PageHand &middot; MIT License &middot;
+        Built with <a href="https://wxt.dev" target="_blank" rel="noreferrer">WXT</a> + React + TypeScript
+      </p>
+    </div>
+  </footer>
+
+  <!-- ======== Theme Script ======== -->
+  <script>
+    (function() {
+      const STORAGE_KEY = 'pagehand:landing-theme';
+      const html = document.documentElement;
+
+      function getPreferredTheme() {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored === 'light' || stored === 'dark') return stored;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function setTheme(theme) {
+        html.setAttribute('data-theme', theme);
+        localStorage.setItem(STORAGE_KEY, theme);
+        updateIcons(theme);
+      }
+
+      function updateIcons(theme) {
+        const sun = document.getElementById('sunIcon');
+        const moon = document.getElementById('moonIcon');
+        if (!sun || !moon) return;
+        if (theme === 'dark') {
+          sun.style.display = 'none';
+          moon.style.display = 'block';
+        } else {
+          sun.style.display = 'block';
+          moon.style.display = 'none';
+        }
+      }
+
+      // Initialize
+      setTheme(getPreferredTheme());
+
+      // Listen for OS theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+        if (!localStorage.getItem(STORAGE_KEY)) {
+          setTheme(this.matches ? 'dark' : 'light');
+        }
+      });
+
+      // Toggle button
+      document.getElementById('themeToggle').addEventListener('click', function() {
+        const current = html.getAttribute('data-theme');
+        setTheme(current === 'dark' ? 'light' : 'dark');
+      });
+    })();
+  </script>
+
+</body>
+</html>
