@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useThemeMode } from "../theme"
+import { useTranslation } from "../useTranslation"
 import type {
   AISettings,
   PageScriptRule,
   PromptTemplate,
   SitePromptProfile,
   ScriptScope,
-  ThemeMode
+  ThemeMode,
+  Locale
 } from "../types"
+
+type Tab = "basic" | "templates" | "sites" | "rules"
 
 const createTemplate = (): PromptTemplate => ({
   id: crypto.randomUUID(),
@@ -31,8 +35,10 @@ export default function OptionsApp() {
   const [testing, setTesting] = useState(false)
   const [status, setStatus] = useState("")
   const [error, setError] = useState("")
+  const [activeTab, setActiveTab] = useState<Tab>("basic")
 
   useThemeMode(settings?.themeMode ?? "auto")
+  const { t, locale } = useTranslation(settings?.locale)
 
   const load = async () => {
     const activeState = await chrome.runtime.sendMessage({
@@ -65,7 +71,7 @@ export default function OptionsApp() {
         type: "ASH_SAVE_SETTINGS",
         settings
       })
-      setStatus("设置已保存。")
+      setStatus(t("options.saved"))
       await load()
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : String(caught))
@@ -88,7 +94,7 @@ export default function OptionsApp() {
       const response = await chrome.runtime.sendMessage({
         type: "ASH_TEST_CONNECTION"
       })
-      setStatus(`连接测试成功：${response.reply}`)
+      setStatus(t("options.testSuccess", { reply: response.reply }))
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : String(caught))
     } finally {
@@ -156,343 +162,393 @@ export default function OptionsApp() {
     await load()
   }
 
+  const tabs: Array<{ key: Tab; label: string }> = useMemo(
+    () => [
+      { key: "basic", label: t("options.tab.basic") },
+      { key: "templates", label: t("options.tab.templates") },
+      { key: "sites", label: t("options.tab.sites") },
+      { key: "rules", label: t("options.tab.rules") }
+    ],
+    [locale]
+  )
+
   if (!settings) {
     return (
-      <div className="shell">
+      <div className="shell shell-options">
         <div className="card">
-          <div className="card-body">加载中...</div>
+          <div className="card-body">{t("options.loading")}</div>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="shell">
-      <div className="stack">
-        <section className="card">
-          <div className="card-body stack">
-            <div className="header">
-              <div>
-                <p className="eyebrow">Settings</p>
-                <h1 className="title">PageHand 设置</h1>
-                <p className="subtitle">
-                  这里维护模型连接、默认持久化策略、模板库和站点级指令。首次使用前，也请在 Chrome 扩展详情页打开 “Allow User Scripts”。
-                </p>
-              </div>
-              <div className="button-row">
-                <button className="ghost-button" onClick={() => void load()}>
-                  重新读取
-                </button>
-              </div>
-            </div>
+    <div className="shell shell-options">
+      <div className="options-topbar">
+        <div>
+          <p className="eyebrow">{t("options.eyebrow")}</p>
+          <h1 className="title">{t("options.title")}</h1>
+        </div>
+      </div>
 
-            {status ? <div className="banner success">{status}</div> : null}
-            {error ? <div className="banner">{error}</div> : null}
+      {status ? <div className="banner success">{status}</div> : null}
+      {error ? <div className="banner">{error}</div> : null}
 
-            <div className="grid two">
-              <label className="field">
-                <span className="label">API Key</span>
-                <input
-                  className="input"
-                  aria-label="API Key"
-                  type="password"
-                  value={settings.apiKey}
-                  onChange={(event) => updateSettings("apiKey", event.target.value)}
-                  placeholder="sk-..."
-                />
-              </label>
-
-              <label className="field">
-                <span className="label">Base URL</span>
-                <input
-                  className="input"
-                  aria-label="Base URL"
-                  value={settings.baseUrl}
-                  onChange={(event) => updateSettings("baseUrl", event.target.value)}
-                />
-              </label>
-
-              <label className="field">
-                <span className="label">Model</span>
-                <input
-                  className="input"
-                  aria-label="Model"
-                  value={settings.model}
-                  onChange={(event) => updateSettings("model", event.target.value)}
-                />
-              </label>
-
-              <label className="field">
-                <span className="label">主题</span>
-                <select
-                  className="select"
-                  value={settings.themeMode}
-                  onChange={(event) =>
-                    updateSettings("themeMode", event.target.value as ThemeMode)
-                  }>
-                  <option value="auto">auto</option>
-                  <option value="light">light</option>
-                  <option value="dark">dark</option>
-                </select>
-              </label>
-
-              <label className="field">
-                <span className="label">默认持久化范围</span>
-                <select
-                  className="select"
-                  value={settings.defaultScope}
-                  onChange={(event) =>
-                    updateSettings("defaultScope", event.target.value as ScriptScope)
-                  }>
-                  <option value="exact">exact</option>
-                  <option value="path">path</option>
-                  <option value="domain">domain</option>
-                </select>
-              </label>
-
-              <label className="field">
-                <span className="label">Temperature</span>
-                <input
-                  className="input"
-                  aria-label="Temperature"
-                  type="number"
-                  step="0.1"
-                  value={settings.temperature}
-                  onChange={(event) => updateSettings("temperature", Number(event.target.value))}
-                />
-              </label>
-
-              <label className="field">
-                <span className="label">Max Tokens</span>
-                <input
-                  className="input"
-                  aria-label="Max Tokens"
-                  type="number"
-                  value={settings.maxTokens}
-                  onChange={(event) => updateSettings("maxTokens", Number(event.target.value))}
-                />
-              </label>
-            </div>
-
-            <label className="field">
-              <span className="label">联网搜索</span>
-              <div className="switch">
-                <input
-                  type="checkbox"
-                  checked={settings.searchEnabled}
-                  onChange={(event) => updateSettings("searchEnabled", event.target.checked)}
-                />
-                使用 DuckDuckGo Instant Answer 作为额外上下文源
-              </div>
-            </label>
-
-            <div className="button-row">
-              <button className="primary-button" disabled={saving} onClick={() => void save()}>
-                {saving ? "保存中..." : "保存设置"}
-              </button>
-              <button
-                className="ghost-button"
-                disabled={testing}
-                onClick={() => void testConnection()}>
-                {testing ? "测试中..." : "测试模型连接"}
-              </button>
-            </div>
+      <div className="options-layout">
+        <nav className="options-sidebar">
+          {tabs.map(({ key, label }) => (
+            <button
+              key={key}
+              className={`options-sidebar-item${activeTab === key ? " active" : ""}`}
+              onClick={() => setActiveTab(key)}>
+              {label}
+            </button>
+          ))}
+          <div className="options-sidebar-divider" />
+          <div className="options-sidebar-field">
+            <span className="options-sidebar-field-label">{t("options.locale")}</span>
+            <select
+              className="options-sidebar-select"
+              value={locale}
+              onChange={(event) => {
+                const next = event.target.value as Locale
+                updateSettings("locale", next)
+                if (settings) {
+                  void chrome.runtime.sendMessage({
+                    type: "ASH_SAVE_SETTINGS",
+                    settings: { ...settings, locale: next }
+                  })
+                }
+              }}>
+              <option value="zh">中文</option>
+              <option value="en">English</option>
+            </select>
           </div>
-        </section>
+          <div className="options-sidebar-field">
+            <span className="options-sidebar-field-label">{t("options.theme")}</span>
+            <select
+              className="options-sidebar-select"
+              value={settings.themeMode}
+              onChange={(event) =>
+                updateSettings("themeMode", event.target.value as ThemeMode)
+              }>
+              <option value="auto">{t("common.auto")}</option>
+              <option value="light">{t("common.light")}</option>
+              <option value="dark">{t("common.dark")}</option>
+            </select>
+          </div>
+        </nav>
 
-        <section className="card">
-          <div className="card-body stack">
-            <div className="header">
-              <div>
-                <p className="eyebrow">Templates</p>
-                <h2 className="title" style={{ fontSize: 18 }}>Prompt Library</h2>
-                <p className="subtitle">这些模板会出现在侧边栏下拉菜单里，用来快速填充常见改造指令。</p>
-              </div>
-              <button
-                className="ghost-button"
-                onClick={() =>
-                  updateSettings("promptTemplates", [...settings.promptTemplates, createTemplate()])
-                }>
-                新增模板
-              </button>
-            </div>
-
-            <div className="list-editor">
-              {settings.promptTemplates.map((template) => (
-                <div className="editor-item" key={template.id}>
+        <div className="options-content">
+          {activeTab === "basic" ? (
+            <section className="card">
+              <div className="card-body stack">
+                <div className="options-section">
+                  <h3 className="options-section-title">{t("options.section.model")}</h3>
                   <div className="grid two">
                     <label className="field">
-                      <span className="label">名称</span>
+                      <span className="label">{t("options.apiKey")}</span>
                       <input
                         className="input"
-                        value={template.name}
-                        onChange={(event) =>
-                          updateTemplate(template.id, (current) => ({
-                            ...current,
-                            name: event.target.value
-                          }))
-                        }
+                        aria-label="API Key"
+                        type="password"
+                        value={settings.apiKey}
+                        onChange={(event) => updateSettings("apiKey", event.target.value)}
+                        placeholder="sk-..."
                       />
                     </label>
+
                     <label className="field">
-                      <span className="label">提示词</span>
-                      <textarea
-                        className="textarea"
-                        value={template.prompt}
-                        onChange={(event) =>
-                          updateTemplate(template.id, (current) => ({
-                            ...current,
-                            prompt: event.target.value
-                          }))
-                        }
+                      <span className="label">{t("options.baseUrl")}</span>
+                      <input
+                        className="input"
+                        aria-label="Base URL"
+                        value={settings.baseUrl}
+                        onChange={(event) => updateSettings("baseUrl", event.target.value)}
                       />
                     </label>
-                  </div>
-                  <div className="editor-actions">
-                    <button className="danger-button" onClick={() => removeTemplate(template.id)}>
-                      删除
-                    </button>
+
+                    <label className="field">
+                      <span className="label">{t("options.model")}</span>
+                      <input
+                        className="input"
+                        aria-label="Model"
+                        value={settings.model}
+                        onChange={(event) => updateSettings("model", event.target.value)}
+                      />
+                    </label>
+
+                    <label className="field">
+                      <span className="label">{t("options.temperature")}</span>
+                      <input
+                        className="input"
+                        aria-label="Temperature"
+                        type="number"
+                        step="0.1"
+                        value={settings.temperature}
+                        onChange={(event) => updateSettings("temperature", Number(event.target.value))}
+                      />
+                    </label>
+
+                    <label className="field">
+                      <span className="label">{t("options.maxTokens")}</span>
+                      <input
+                        className="input"
+                        aria-label="Max Tokens"
+                        type="number"
+                        value={settings.maxTokens}
+                        onChange={(event) => updateSettings("maxTokens", Number(event.target.value))}
+                      />
+                    </label>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        <section className="card">
-          <div className="card-body stack">
-            <div className="header">
-              <div>
-                <p className="eyebrow">Sites</p>
-                <h2 className="title" style={{ fontSize: 18 }}>站点指令</h2>
-                <p className="subtitle">为特定域名追加长期指令，生成或分析时会自动带上。</p>
-              </div>
-              <button
-                className="ghost-button"
-                onClick={() =>
-                  updateSettings("siteProfiles", [...settings.siteProfiles, createSiteProfile()])
-                }>
-                新增站点指令
-              </button>
-            </div>
-
-            <div className="list-editor">
-              {settings.siteProfiles.length === 0 ? (
-                <div className="empty">还没有站点级额外指令。</div>
-              ) : (
-                settings.siteProfiles.map((profile) => (
-                  <div className="editor-item" key={profile.id}>
-                    <div className="grid two">
-                      <label className="field">
-                        <span className="label">Hostname</span>
-                        <input
-                          className="input"
-                          value={profile.hostname}
-                          placeholder="example.com"
-                          onChange={(event) =>
-                            updateSiteProfile(profile.id, (current) => ({
-                              ...current,
-                              hostname: event.target.value.trim()
-                            }))
-                          }
-                        />
-                      </label>
-                      <label className="field">
-                        <span className="label">附加指令</span>
-                        <textarea
-                          className="textarea"
-                          value={profile.instruction}
-                          onChange={(event) =>
-                            updateSiteProfile(profile.id, (current) => ({
-                              ...current,
-                              instruction: event.target.value
-                            }))
-                          }
-                        />
-                      </label>
-                    </div>
-                    <div className="editor-actions">
-                      <label className="switch">
-                        <input
-                          type="checkbox"
-                          checked={profile.enabled}
-                          onChange={(event) =>
-                            updateSiteProfile(profile.id, (current) => ({
-                              ...current,
-                              enabled: event.target.checked
-                            }))
-                          }
-                        />
-                        启用
-                      </label>
-                      <button
-                        className="danger-button"
-                        onClick={() =>
-                          updateSettings(
-                            "siteProfiles",
-                            settings.siteProfiles.filter((item) => item.id !== profile.id)
-                          )
+                <div className="options-section">
+                  <h3 className="options-section-title">{t("options.section.behavior")}</h3>
+                  <div className="grid two">
+                    <label className="field">
+                      <span className="label">{t("options.scope")}</span>
+                      <select
+                        className="select"
+                        value={settings.defaultScope}
+                        onChange={(event) =>
+                          updateSettings("defaultScope", event.target.value as ScriptScope)
                         }>
-                        删除
-                      </button>
-                    </div>
+                        <option value="exact">{t("common.exact")}</option>
+                        <option value="path">{t("common.path")}</option>
+                        <option value="domain">{t("common.domain")}</option>
+                      </select>
+                    </label>
                   </div>
-                ))
-              )}
-            </div>
-          </div>
-        </section>
 
-        <section className="card">
-          <div className="card-body stack">
-            <div className="header">
-              <div>
-                <p className="eyebrow">Rules</p>
-                <h2 className="title" style={{ fontSize: 18 }}>全局规则概览</h2>
+                  <label className="field">
+                    <span className="label">{t("options.searchToggle")}</span>
+                    <div className="switch">
+                      <input
+                        type="checkbox"
+                        checked={settings.searchEnabled}
+                        onChange={(event) => updateSettings("searchEnabled", event.target.checked)}
+                      />
+                      {t("options.searchDesc")}
+                    </div>
+                  </label>
+                </div>
+
+                <div className="button-row" style={{ marginTop: 8 }}>
+                  <button className="primary-button" disabled={saving} onClick={() => void save()}>
+                    {saving ? t("options.saving") : t("options.save")}
+                  </button>
+                  <button
+                    className="ghost-button"
+                    disabled={testing}
+                    onClick={() => void testConnection()}>
+                    {testing ? t("options.testing") : t("options.test")}
+                  </button>
+                </div>
               </div>
-            </div>
+            </section>
+          ) : null}
 
-            <div className="rule-list">
-              {rules.length === 0 ? (
-                <div className="empty">还没有缓存脚本。</div>
-              ) : (
-                rules.map((rule) => (
-                  <div className="rule-card" key={rule.id}>
-                    <div className="rule-top">
-                      <div>
-                        <h3 className="rule-name">{rule.name}</h3>
-                        <div className="rule-meta">
-                          <span className="tag">{rule.scope}</span>
-                          <span>{rule.hostname}</span>
-                          <span>命中 {rule.hitCount} 次</span>
-                          <span>更新时间 {new Date(rule.updatedAt).toLocaleString()}</span>
-                        </div>
-                        <p className="rule-summary">{rule.summary}</p>
-                        {rule.lastError ? (
-                          <div className="banner" style={{ marginTop: 10 }}>{rule.lastError}</div>
-                        ) : null}
-                      </div>
-                      <label className="switch">
-                        <input
-                          type="checkbox"
-                          checked={rule.enabled}
-                          onChange={(event) => void toggleRule(rule.id, event.target.checked)}
-                        />
-                        启用
-                      </label>
-                    </div>
-
-                    <div className="editor-actions">
-                      <button className="danger-button" onClick={() => void removeRule(rule.id)}>
-                        删除
-                      </button>
-                    </div>
+          {activeTab === "templates" ? (
+            <section className="card">
+              <div className="card-body stack">
+                <div className="header">
+                  <div>
+                    <p className="eyebrow">{t("options.templates.eyebrow")}</p>
+                    <h2 className="title" style={{ fontSize: 18 }}>{t("options.templates.title")}</h2>
+                    <p className="subtitle">{t("options.templates.subtitle")}</p>
                   </div>
-                ))
-              )}
-            </div>
-          </div>
-        </section>
+                  <button
+                    className="ghost-button"
+                    onClick={() =>
+                      updateSettings("promptTemplates", [...settings.promptTemplates, createTemplate()])
+                    }>
+                    {t("options.templates.add")}
+                  </button>
+                </div>
+
+                <div className="list-editor">
+                  {settings.promptTemplates.map((template) => (
+                    <div className="editor-item" key={template.id}>
+                      <div className="grid two">
+                        <label className="field">
+                          <span className="label">{t("options.templates.name")}</span>
+                          <input
+                            className="input"
+                            value={template.name}
+                            onChange={(event) =>
+                              updateTemplate(template.id, (current) => ({
+                                ...current,
+                                name: event.target.value
+                              }))
+                            }
+                          />
+                        </label>
+                        <label className="field">
+                          <span className="label">{t("options.templates.prompt")}</span>
+                          <textarea
+                            className="textarea"
+                            value={template.prompt}
+                            onChange={(event) =>
+                              updateTemplate(template.id, (current) => ({
+                                ...current,
+                                prompt: event.target.value
+                              }))
+                            }
+                          />
+                        </label>
+                      </div>
+                      <div className="editor-actions">
+                        <button className="danger-button" onClick={() => removeTemplate(template.id)}>
+                          {t("options.templates.delete")}
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          ) : null}
+
+          {activeTab === "sites" ? (
+            <section className="card">
+              <div className="card-body stack">
+                <div className="header">
+                  <div>
+                    <p className="eyebrow">{t("options.sites.eyebrow")}</p>
+                    <h2 className="title" style={{ fontSize: 18 }}>{t("options.sites.title")}</h2>
+                    <p className="subtitle">{t("options.sites.subtitle")}</p>
+                  </div>
+                  <button
+                    className="ghost-button"
+                    onClick={() =>
+                      updateSettings("siteProfiles", [...settings.siteProfiles, createSiteProfile()])
+                    }>
+                    {t("options.sites.add")}
+                  </button>
+                </div>
+
+                <div className="list-editor">
+                  {settings.siteProfiles.length === 0 ? (
+                    <div className="empty">{t("options.sites.empty")}</div>
+                  ) : (
+                    settings.siteProfiles.map((profile) => (
+                      <div className="editor-item" key={profile.id}>
+                        <div className="grid two">
+                          <label className="field">
+                            <span className="label">{t("options.sites.hostname")}</span>
+                            <input
+                              className="input"
+                              value={profile.hostname}
+                              placeholder="example.com"
+                              onChange={(event) =>
+                                updateSiteProfile(profile.id, (current) => ({
+                                  ...current,
+                                  hostname: event.target.value.trim()
+                                }))
+                              }
+                            />
+                          </label>
+                          <label className="field">
+                            <span className="label">{t("options.sites.instruction")}</span>
+                            <textarea
+                              className="textarea"
+                              value={profile.instruction}
+                              onChange={(event) =>
+                                updateSiteProfile(profile.id, (current) => ({
+                                  ...current,
+                                  instruction: event.target.value
+                                }))
+                              }
+                            />
+                          </label>
+                        </div>
+                        <div className="editor-actions">
+                          <label className="switch">
+                            <input
+                              type="checkbox"
+                              checked={profile.enabled}
+                              onChange={(event) =>
+                                updateSiteProfile(profile.id, (current) => ({
+                                  ...current,
+                                  enabled: event.target.checked
+                                }))
+                              }
+                            />
+                            {t("options.sites.enable")}
+                          </label>
+                          <button
+                            className="danger-button"
+                            onClick={() =>
+                              updateSettings(
+                                "siteProfiles",
+                                settings.siteProfiles.filter((item) => item.id !== profile.id)
+                              )
+                            }>
+                            {t("options.sites.delete")}
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            </section>
+          ) : null}
+
+          {activeTab === "rules" ? (
+            <section className="card">
+              <div className="card-body stack">
+                <div className="header">
+                  <div>
+                    <p className="eyebrow">{t("options.rules.eyebrow")}</p>
+                    <h2 className="title" style={{ fontSize: 18 }}>{t("options.rules.title")}</h2>
+                  </div>
+                </div>
+
+                <div className="rule-list">
+                  {rules.length === 0 ? (
+                    <div className="empty">{t("options.rules.empty")}</div>
+                  ) : (
+                    rules.map((rule) => (
+                      <div className="rule-card" key={rule.id}>
+                        <div className="rule-top">
+                          <div>
+                            <h3 className="rule-name">{rule.name}</h3>
+                            <div className="rule-meta">
+                              <span className="tag">{rule.scope}</span>
+                              <span>{rule.hostname}</span>
+                              <span>{t("options.rules.hitCount", { n: rule.hitCount })}</span>
+                              <span>{t("options.rules.updated", { date: new Date(rule.updatedAt).toLocaleString() })}</span>
+                            </div>
+                            <p className="rule-summary">{rule.summary}</p>
+                            {rule.lastError ? (
+                              <div className="banner" style={{ marginTop: 10 }}>{rule.lastError}</div>
+                            ) : null}
+                          </div>
+                          <label className="switch">
+                            <input
+                              type="checkbox"
+                              checked={rule.enabled}
+                              onChange={(event) => void toggleRule(rule.id, event.target.checked)}
+                            />
+                            {t("options.rules.enable")}
+                          </label>
+                        </div>
+
+                        <div className="editor-actions">
+                          <button className="danger-button" onClick={() => void removeRule(rule.id)}>
+                            {t("options.rules.delete")}
+                          </button>
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
+            </section>
+          ) : null}
+        </div>
       </div>
     </div>
   )

@@ -4,6 +4,7 @@ export type ScriptRunAt = "document_start" | "document_end" | "document_idle"
 export type AssistantMode = "analyze" | "script"
 export type AIChatRole = "system" | "user" | "assistant"
 export type ThemeMode = "light" | "dark" | "auto"
+export type Locale = "zh" | "en"
 
 export interface PromptTemplate {
   id: string
@@ -25,6 +26,7 @@ export interface AISettings {
   temperature: number
   maxTokens: number
   themeMode: ThemeMode
+  locale: Locale
   defaultScope: ScriptScope
   searchEnabled: boolean
   searchProvider: "duckduckgo"

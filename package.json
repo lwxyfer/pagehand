@@ -1,7 +1,7 @@
 {
   "name": "pagehand",
   "displayName": "PageHand",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A Chrome sidepanel assistant that analyzes the current page and persists AI-generated page scripts.",
   "author": "wl",
   "scripts": {

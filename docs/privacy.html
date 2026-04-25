@@ -19,8 +19,9 @@
         PageHand
       </a>
       <div class="nav-links">
-        <a href="index.html" class="nav-link">Home</a>
+        <a href="index.html" class="nav-link" data-i18n="nav.home">Home</a>
         <a href="https://github.com/lwxyfer/pagehand" class="nav-link" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language">中文</button>
       </div>
     </div>
   </nav>
@@ -96,14 +97,43 @@
 
   <script>
     (function() {
-      const STORAGE_KEY = 'pagehand:landing-theme';
-      const html = document.documentElement;
+      var TRANSLATIONS = {
+        'nav.home': { en: 'Home', zh: '首页' }
+      };
+
+      var STORAGE_KEY = 'pagehand:landing-theme';
+      var LANG_KEY = 'pagehand:landing-lang';
+      var html = document.documentElement;
+
       function getPreferredTheme() {
-        const stored = localStorage.getItem(STORAGE_KEY);
+        var stored = localStorage.getItem(STORAGE_KEY);
         if (stored === 'light' || stored === 'dark') return stored;
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
       html.setAttribute('data-theme', getPreferredTheme());
+
+      var currentLang = localStorage.getItem(LANG_KEY) || 'en';
+
+      function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem(LANG_KEY, lang);
+        var toggle = document.getElementById('langToggle');
+        if (toggle) toggle.textContent = lang === 'en' ? '中文' : 'English';
+        var els = document.querySelectorAll('[data-i18n]');
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          var key = el.getAttribute('data-i18n');
+          if (key && TRANSLATIONS[key]) {
+            el.textContent = TRANSLATIONS[key][lang];
+          }
+        }
+      }
+
+      setLanguage(currentLang);
+
+      document.getElementById('langToggle').addEventListener('click', function() {
+        setLanguage(currentLang === 'en' ? 'zh' : 'en');
+      });
     })();
   </script>
 

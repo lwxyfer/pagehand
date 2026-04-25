@@ -17,7 +17,7 @@ export default defineConfig({
     description:
       "Analyze the current page and persist AI-generated page scripts for automatic replay.",
     default_locale: "en",
-    version: "0.1.0",
+    version: "0.2.0",
     action: {
       default_title: "Open PageHand"
     },

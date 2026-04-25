@@ -25,9 +25,10 @@
         PageHand
       </a>
       <div class="nav-links">
-        <a href="#features" class="nav-link">Features</a>
-        <a href="#install" class="nav-link">Install</a>
+        <a href="#features" class="nav-link" data-i18n="nav.features">Features</a>
+        <a href="#install" class="nav-link" data-i18n="nav.install">Install</a>
         <a href="https://github.com/lwxyfer/pagehand" class="nav-link" target="_blank" rel="noreferrer">GitHub</a>
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language">中文</button>
         <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
           <svg id="themeIcon" viewBox="0 0 24 24" aria-hidden="true">
             <!-- Sun -->
@@ -49,12 +50,12 @@
         </svg>
       </div>
       <h1>PageHand</h1>
-      <p class="hero-tagline">An AI side panel for injecting dynamic page scripts, reshaping any page on demand, and replaying those changes automatically.</p>
+      <p class="hero-tagline" data-i18n="hero.tagline">An AI side panel for injecting dynamic page scripts, reshaping any page on demand, and replaying those changes automatically.</p>
       <a href="https://github.com/lwxyfer/pagehand/releases/latest" class="hero-cta" target="_blank" rel="noreferrer">
         <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14l-5-5 1.41-1.41L11 13.17l7.59-7.59L20 7l-9 9z" fill="currentColor"/></svg>
-        Download Latest Release
+        <span data-i18n="hero.cta">Download Latest Release</span>
       </a>
-      <span class="hero-sub-cta">Free &amp; open source &middot; <a href="#install">4-step install</a></span>
+      <span class="hero-sub-cta"><span data-i18n="hero.sub">Free &amp; open source</span> &middot; <a href="#install"><span data-i18n="hero.subInstall">4-step install</span></a></span>
 
       <div class="badge-bar">
         <span class="badge">Chrome MV3</span>
@@ -77,37 +78,37 @@
   <!-- ======== Why PageHand ======== -->
   <section class="section" id="why">
     <div class="container">
-      <p class="section-label">Why PageHand</p>
-      <h2 class="section-title">Most browser AI tools stop at summarization.</h2>
-      <p class="section-subtitle">PageHand goes one step further: read the page, generate a runnable script, execute it from chat, and persist it for automatic replay.</p>
+      <p class="section-label" data-i18n="section.why">Why PageHand</p>
+      <h2 class="section-title" data-i18n="why.title">Most browser AI tools stop at summarization.</h2>
+      <p class="section-subtitle" data-i18n="why.subtitle">PageHand goes one step further: read the page, generate a runnable script, execute it from chat, and persist it for automatic replay.</p>
 
       <div class="steps">
         <div class="step">
           <span class="step-num">1</span>
           <div class="step-body">
-            <h3>Read the current page context</h3>
-            <p>PageHand extracts the page structure, content, and interactive elements so the model knows exactly what's on screen.</p>
+            <h3 data-i18n="why.step1.title">Read the current page context</h3>
+            <p data-i18n="why.step1.desc">PageHand extracts the page structure, content, and interactive elements so the model knows exactly what's on screen.</p>
           </div>
         </div>
         <div class="step">
           <span class="step-num">2</span>
           <div class="step-body">
-            <h3>Generate a runnable script</h3>
-            <p>Describe the change in natural language. The model generates a self-contained JavaScript snippet tailored to that page.</p>
+            <h3 data-i18n="why.step2.title">Generate a runnable script</h3>
+            <p data-i18n="why.step2.desc">Describe the change in natural language. The model generates a self-contained JavaScript snippet tailored to that page.</p>
           </div>
         </div>
         <div class="step">
           <span class="step-num">3</span>
           <div class="step-body">
-            <h3>Execute from chat</h3>
-            <p>Review the generated code, choose a persistence scope (exact URL, path, or domain), and inject it into the page instantly.</p>
+            <h3 data-i18n="why.step3.title">Execute from chat</h3>
+            <p data-i18n="why.step3.desc">Review the generated code, choose a persistence scope (exact URL, path, or domain), and inject it into the page instantly.</p>
           </div>
         </div>
         <div class="step">
           <span class="step-num">4</span>
           <div class="step-body">
-            <h3>Persist &amp; replay automatically</h3>
-            <p>The rule is saved locally and registered with <code class="inline-code">chrome.userScripts</code>. It runs automatically on revisit — even across SPA route changes.</p>
+            <h3 data-i18n="why.step4.title">Persist &amp; replay automatically</h3>
+            <p data-i18n="why.step4.desc">The rule is saved locally and registered with <code class="inline-code">chrome.userScripts</code>. It runs automatically on revisit — even across SPA route changes.</p>
           </div>
         </div>
       </div>
@@ -117,79 +118,79 @@
   <!-- ======== Highlights ======== -->
   <section class="section" id="features">
     <div class="container">
-      <p class="section-label">Highlights</p>
-      <h2 class="section-title">What makes PageHand different</h2>
-      <p class="section-subtitle">From natural language to persistent page automation in one flow.</p>
+      <p class="section-label" data-i18n="section.highlights">Highlights</p>
+      <h2 class="section-title" data-i18n="highlights.title">What makes PageHand different</h2>
+      <p class="section-subtitle" data-i18n="highlights.subtitle">From natural language to persistent page automation in one flow.</p>
 
       <div class="grid-2">
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
           <div>
-            <h4>Dynamic page scripts from natural language</h4>
-            <p>Generate and execute page-modifying scripts without hand-writing code.</p>
+            <h4 data-i18n="highlights.item1.title">Dynamic page scripts from natural language</h4>
+            <p data-i18n="highlights.item1.desc">Generate and execute page-modifying scripts without hand-writing code.</p>
           </div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
           <div>
-            <h4>Inject UI, remove sections, rewrite content</h4>
-            <p>Reshape any page on demand — declutter, translate, highlight, or insert custom elements.</p>
+            <h4 data-i18n="highlights.item2.title">Inject UI, remove sections, rewrite content</h4>
+            <p data-i18n="highlights.item2.desc">Reshape any page on demand — declutter, translate, highlight, or insert custom elements.</p>
           </div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
           <div>
-            <h4>Persist by <code class="inline-code">path</code>, <code class="inline-code">exact</code>, or <code class="inline-code">domain</code></h4>
-            <p>Choose the scope that matches your workflow — from a single URL to an entire site.</p>
+            <h4 data-i18n="highlights.item3.title">Persist by path, exact, or domain</h4>
+            <p data-i18n="highlights.item3.desc">Choose the scope that matches your workflow — from a single URL to an entire site.</p>
           </div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
           <div>
-            <h4>Multiple scripts per page</h4>
-            <p>Layer multiple rules on the same page. Each runs independently in order.</p>
+            <h4 data-i18n="highlights.item4.title">Multiple scripts per page</h4>
+            <p data-i18n="highlights.item4.desc">Layer multiple rules on the same page. Each runs independently in order.</p>
           </div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
           <div>
-            <h4>SPA-aware replay</h4>
-            <p>Listens for route transitions in single-page applications and re-runs matching rules automatically.</p>
+            <h4 data-i18n="highlights.item5.title">SPA-aware replay</h4>
+            <p data-i18n="highlights.item5.desc">Listens for route transitions in single-page applications and re-runs matching rules automatically.</p>
           </div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
           <div>
-            <h4>Chat with the current page</h4>
-            <p>Ask questions about what's on screen instead of starting from a blank LLM session.</p>
+            <h4 data-i18n="highlights.item6.title">Chat with the current page</h4>
+            <p data-i18n="highlights.item6.desc">Ask questions about what's on screen instead of starting from a blank LLM session.</p>
           </div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
           <div>
-            <h4>Toggle search per message</h4>
-            <p>Get extra context from DuckDuckGo when you need it, without cluttering every request.</p>
+            <h4 data-i18n="highlights.item7.title">Toggle search per message</h4>
+            <p data-i18n="highlights.item7.desc">Get extra context from DuckDuckGo when you need it, without cluttering every request.</p>
           </div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
           <div>
-            <h4>Active rule inspector</h4>
-            <p>See which scripts apply to the current page and enable or disable them instantly.</p>
+            <h4 data-i18n="highlights.item8.title">Active rule inspector</h4>
+            <p data-i18n="highlights.item8.desc">See which scripts apply to the current page and enable or disable them instantly.</p>
           </div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
           <div>
-            <h4>Prompt library shortcuts</h4>
-            <p>Save your most-used prompts for quick reuse — clean layout, translate, highlight, and more.</p>
+            <h4 data-i18n="highlights.item9.title">Prompt library shortcuts</h4>
+            <p data-i18n="highlights.item9.desc">Save your most-used prompts for quick reuse — clean layout, translate, highlight, and more.</p>
           </div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
           <div>
-            <h4>Light, dark, and auto themes</h4>
-            <p>Matches your system preference or lets you choose manually.</p>
+            <h4 data-i18n="highlights.item10.title">Light, dark, and auto themes</h4>
+            <p data-i18n="highlights.item10.desc">Matches your system preference or lets you choose manually.</p>
           </div>
         </div>
       </div>
@@ -199,49 +200,49 @@
   <!-- ======== How It Works ======== -->
   <section class="section">
     <div class="container">
-      <p class="section-label">How It Works</p>
-      <h2 class="section-title">From page to script in one cycle</h2>
-      <p class="section-subtitle">PageHand orchestrates a tight loop between the browser, the model, and your page.</p>
+      <p class="section-label" data-i18n="section.howItWorks">How It Works</p>
+      <h2 class="section-title" data-i18n="howItWorks.title">From page to script in one cycle</h2>
+      <p class="section-subtitle" data-i18n="howItWorks.subtitle">PageHand orchestrates a tight loop between the browser, the model, and your page.</p>
 
       <div class="flow-grid">
         <div class="flow-node">
           <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm11 0h7v7h-7v-7z" fill="currentColor"/></svg>
-          Current page
+          <span data-i18n="flow.currentPage">Current page</span>
         </div>
         <div class="flow-arrow">&rarr;</div>
         <div class="flow-node">
           <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/></svg>
-          Page context extractor
+          <span data-i18n="flow.contextExtractor">Page context extractor</span>
         </div>
         <div class="flow-arrow">&rarr;</div>
         <div class="flow-node">
           <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" fill="currentColor"/></svg>
-          PageHand side panel
+          <span data-i18n="flow.sidePanel">PageHand side panel</span>
         </div>
         <div class="flow-arrow">&rarr;</div>
         <div class="flow-node">
           <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 14.2 9l6.3 2.2-6.3 2.1L12 20l-2.2-6.7-6.3-2.1L9.8 9 12 2.5Z" fill="currentColor"/></svg>
-          AI model API
+          <span data-i18n="flow.aiModel">AI model API</span>
         </div>
         <div class="flow-arrow">&rarr;</div>
         <div class="flow-node">
           <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
-          Answer or script
+          <span data-i18n="flow.answerScript">Answer or script</span>
         </div>
         <div class="flow-arrow">&rarr;</div>
         <div class="flow-node">
           <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6.5v11l9-5.5-9-5.5Z" fill="currentColor"/></svg>
-          Execute in tab
+          <span data-i18n="flow.executeInTab">Execute in tab</span>
         </div>
         <div class="flow-arrow">&rarr;</div>
         <div class="flow-node">
           <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 6h-2v3h-3v2h3v3h2v-3h3V9h-3V6zm-10 7H8v5H6V6h5.07a7 7 0 0 0 0 7H11z" fill="currentColor"/></svg>
-          Persist rule
+          <span data-i18n="flow.persistRule">Persist rule</span>
         </div>
         <div class="flow-arrow">&rarr;</div>
         <div class="flow-node">
           <svg class="flow-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5a7 7 0 0 1 6.41 4.2H16v1.5h5V5.7h-1.5v2.38A8.5 8.5 0 1 0 20.5 12H19a7 7 0 1 1-7-7Z" fill="currentColor"/></svg>
-          Auto-run on revisit
+          <span data-i18n="flow.autoRun">Auto-run on revisit</span>
         </div>
       </div>
     </div>
@@ -250,56 +251,56 @@
   <!-- ======== Core Capabilities ======== -->
   <section class="section">
     <div class="container">
-      <p class="section-label">Core Capabilities</p>
-      <h2 class="section-title">Five features that work together</h2>
-      <p class="section-subtitle">Each capability builds on the one before it — from simple Q&A to persistent page automation.</p>
+      <p class="section-label" data-i18n="section.capabilities">Core Capabilities</p>
+      <h2 class="section-title" data-i18n="capabilities.title">Five features that work together</h2>
+      <p class="section-subtitle" data-i18n="capabilities.subtitle">Each capability builds on the one before it — from simple Q&A to persistent page automation.</p>
 
       <div class="capability-grid">
         <div class="cap-card">
-          <h3>1. Current-page assistant</h3>
-          <p>PageHand answers with awareness of the active tab. Ask about what's on screen, extract key information, or analyze the page structure.</p>
+          <h3 data-i18n="capabilities.card1.title">1. Current-page assistant</h3>
+          <p data-i18n="capabilities.card1.desc">PageHand answers with awareness of the active tab. Ask about what's on screen, extract key information, or analyze the page structure.</p>
           <ul>
-            <li>Summarize the current page</li>
-            <li>Extract facts and data</li>
-            <li>Identify next actions</li>
+            <li data-i18n="capabilities.card1.li1">Summarize the current page</li>
+            <li data-i18n="capabilities.card1.li2">Extract facts and data</li>
+            <li data-i18n="capabilities.card1.li3">Identify next actions</li>
           </ul>
         </div>
         <div class="cap-card">
-          <h3>2. Script generation mode</h3>
-          <p>Enable script mode to modify the page instead of only answering. The model returns a runnable script with a summary and execution controls.</p>
+          <h3 data-i18n="capabilities.card2.title">2. Script generation mode</h3>
+          <p data-i18n="capabilities.card2.desc">Enable script mode to modify the page instead of only answering. The model returns a runnable script with a summary and execution controls.</p>
           <ul>
-            <li>Remove ads and clutter</li>
-            <li>Insert summary cards</li>
-            <li>Highlight key CTAs</li>
-            <li>Translate content in place</li>
+            <li data-i18n="capabilities.card2.li1">Remove ads and clutter</li>
+            <li data-i18n="capabilities.card2.li2">Insert summary cards</li>
+            <li data-i18n="capabilities.card2.li3">Highlight key CTAs</li>
+            <li data-i18n="capabilities.card2.li4">Translate content in place</li>
           </ul>
         </div>
         <div class="cap-card">
-          <h3>3. Persistent page scripting</h3>
-          <p>After execution, scripts are stored locally and registered with <code class="inline-code">chrome.userScripts</code>. They replay automatically on revisit.</p>
+          <h3 data-i18n="capabilities.card3.title">3. Persistent page scripting</h3>
+          <p data-i18n="capabilities.card3.desc">After execution, scripts are stored locally and registered with <code class="inline-code">chrome.userScripts</code>. They replay automatically on revisit.</p>
           <ul>
-            <li>Automatic replay on revisit</li>
-            <li>Reusable site rules</li>
-            <li>Layered rules on the same page</li>
-            <li>No re-prompting needed</li>
+            <li data-i18n="capabilities.card3.li1">Automatic replay on revisit</li>
+            <li data-i18n="capabilities.card3.li2">Reusable site rules</li>
+            <li data-i18n="capabilities.card3.li3">Layered rules on the same page</li>
+            <li data-i18n="capabilities.card3.li4">No re-prompting needed</li>
           </ul>
         </div>
         <div class="cap-card">
-          <h3>4. SPA-aware replay</h3>
-          <p>For single-page applications, PageHand listens for route transitions and re-runs matching rules when the URL changes.</p>
+          <h3 data-i18n="capabilities.card4.title">4. SPA-aware replay</h3>
+          <p data-i18n="capabilities.card4.desc">For single-page applications, PageHand listens for route transitions and re-runs matching rules when the URL changes.</p>
           <ul>
-            <li>Monitors pushState/replaceState</li>
-            <li>Handles popstate and hashchange</li>
-            <li>Zero-config for most SPAs</li>
+            <li data-i18n="capabilities.card4.li1">Monitors pushState/replaceState</li>
+            <li data-i18n="capabilities.card4.li2">Handles popstate and hashchange</li>
+            <li data-i18n="capabilities.card4.li3">Zero-config for most SPAs</li>
           </ul>
         </div>
         <div class="cap-card">
-          <h3>5. Active rule visibility</h3>
-          <p>The side panel shows whether the current page has matching scripts and lets you manage them on the spot.</p>
+          <h3 data-i18n="capabilities.card5.title">5. Active rule visibility</h3>
+          <p data-i18n="capabilities.card5.desc">The side panel shows whether the current page has matching scripts and lets you manage them on the spot.</p>
           <ul>
-            <li>Inspect effective status</li>
-            <li>Run a rule immediately</li>
-            <li>Enable or disable with one click</li>
+            <li data-i18n="capabilities.card5.li1">Inspect effective status</li>
+            <li data-i18n="capabilities.card5.li2">Run a rule immediately</li>
+            <li data-i18n="capabilities.card5.li3">Enable or disable with one click</li>
           </ul>
         </div>
       </div>
@@ -309,30 +310,30 @@
   <!-- ======== Product Principles ======== -->
   <section class="section">
     <div class="container">
-      <p class="section-label">Product Principles</p>
-      <h2 class="section-title">Designed for real workflows</h2>
-      <p class="section-subtitle">Every decision in PageHand is guided by these principles.</p>
+      <p class="section-label" data-i18n="section.principles">Product Principles</p>
+      <h2 class="section-title" data-i18n="principles.title">Designed for real workflows</h2>
+      <p class="section-subtitle" data-i18n="principles.subtitle">Every decision in PageHand is guided by these principles.</p>
 
       <div class="principles">
         <div class="principle-card">
-          <h3>Chat-first</h3>
-          <p>The side panel should feel like a normal assistant — not a developer console.</p>
+          <h3 data-i18n="principles.card1.title">Chat-first</h3>
+          <p data-i18n="principles.card1.desc">The side panel should feel like a normal assistant — not a developer console.</p>
         </div>
         <div class="principle-card">
-          <h3>Minimal friction</h3>
-          <p>Search and script mode are simple toggles next to send. No modal dialogs, no complex setup.</p>
+          <h3 data-i18n="principles.card2.title">Minimal friction</h3>
+          <p data-i18n="principles.card2.desc">Search and script mode are simple toggles next to send. No modal dialogs, no complex setup.</p>
         </div>
         <div class="principle-card">
-          <h3>Personal automation</h3>
-          <p>Generated scripts are for self-use and repeated workflows. You own the rules you create.</p>
+          <h3 data-i18n="principles.card3.title">Personal automation</h3>
+          <p data-i18n="principles.card3.desc">Generated scripts are for self-use and repeated workflows. You own the rules you create.</p>
         </div>
         <div class="principle-card">
-          <h3>Local ownership</h3>
-          <p>Settings and rules live in browser storage. No account, no cloud sync, no telemetry.</p>
+          <h3 data-i18n="principles.card4.title">Local ownership</h3>
+          <p data-i18n="principles.card4.desc">Settings and rules live in browser storage. No account, no cloud sync, no telemetry.</p>
         </div>
         <div class="principle-card">
-          <h3>Fast iteration</h3>
-          <p>Generate, execute, refine, and keep the result. The feedback loop is seconds, not minutes.</p>
+          <h3 data-i18n="principles.card5.title">Fast iteration</h3>
+          <p data-i18n="principles.card5.desc">Generate, execute, refine, and keep the result. The feedback loop is seconds, not minutes.</p>
         </div>
       </div>
     </div>
@@ -341,37 +342,37 @@
   <!-- ======== Installation ======== -->
   <section class="section" id="install">
     <div class="container">
-      <p class="section-label">Installation</p>
-      <h2 class="section-title">Get started in 4 steps</h2>
-      <p class="section-subtitle">PageHand is a Chrome extension sideloaded from the latest release. No store listing required.</p>
+      <p class="section-label" data-i18n="section.installation">Installation</p>
+      <h2 class="section-title" data-i18n="installation.title">Get started in 4 steps</h2>
+      <p class="section-subtitle" data-i18n="installation.subtitle">PageHand is a Chrome extension sideloaded from the latest release. No store listing required.</p>
 
       <div class="install-steps">
         <div class="install-step">
           <span class="install-step-num">1</span>
           <div class="install-step-body">
-            <h3>Download the latest release</h3>
-            <p>Download the <code>pagehand-*-chrome.zip</code> asset from <a href="https://github.com/lwxyfer/pagehand/releases/latest" target="_blank" rel="noreferrer">the latest release</a> on GitHub.</p>
+            <h3 data-i18n="installation.step1.title">Download the latest release</h3>
+            <p data-i18n="installation.step1.desc">Download the <code>pagehand-*-chrome.zip</code> asset from <a href="https://github.com/lwxyfer/pagehand/releases/latest" target="_blank" rel="noreferrer">the latest release</a> on GitHub.</p>
           </div>
         </div>
         <div class="install-step">
           <span class="install-step-num">2</span>
           <div class="install-step-body">
-            <h3>Extract the zip</h3>
-            <p>Unzip to any folder on your machine that you can keep in place.</p>
+            <h3 data-i18n="installation.step2.title">Extract the zip</h3>
+            <p data-i18n="installation.step2.desc">Unzip to any folder on your machine that you can keep in place.</p>
           </div>
         </div>
         <div class="install-step">
           <span class="install-step-num">3</span>
           <div class="install-step-body">
-            <h3>Load as unpacked extension</h3>
-            <p>Open <code>chrome://extensions</code>, enable <strong>Developer Mode</strong>, and click <strong>Load unpacked</strong>. Select the extracted folder.</p>
+            <h3 data-i18n="installation.step3.title">Load as unpacked extension</h3>
+            <p data-i18n="installation.step3.desc">Open <code>chrome://extensions</code>, enable <strong>Developer Mode</strong>, and click <strong>Load unpacked</strong>. Select the extracted folder.</p>
           </div>
         </div>
         <div class="install-step">
           <span class="install-step-num">4</span>
           <div class="install-step-body">
-            <h3>Enable User Scripts</h3>
-            <p>In the extension details page, toggle <strong>Allow User Scripts</strong> on. This is required for persistent script replay.</p>
+            <h3 data-i18n="installation.step4.title">Enable User Scripts</h3>
+            <p data-i18n="installation.step4.desc">In the extension details page, toggle <strong>Allow User Scripts</strong> on. This is required for persistent script replay.</p>
           </div>
         </div>
       </div>
@@ -388,44 +389,44 @@
   <!-- ======== Quick Start ======== -->
   <section class="section">
     <div class="container">
-      <p class="section-label">Quick Start</p>
-      <h2 class="section-title">From install to first script</h2>
-      <p class="section-subtitle">Once loaded, getting started takes seconds.</p>
+      <p class="section-label" data-i18n="section.quickStart">Quick Start</p>
+      <h2 class="section-title" data-i18n="quickStart.title">From install to first script</h2>
+      <p class="section-subtitle" data-i18n="quickStart.subtitle">Once loaded, getting started takes seconds.</p>
 
       <div class="steps">
         <div class="step">
           <span class="step-num">1</span>
           <div class="step-body">
-            <h3>Open a normal page</h3>
-            <p>Any <code>http</code>, <code>https</code>, or <code>file</code> page works.</p>
+            <h3 data-i18n="quickStart.step1.title">Open a normal page</h3>
+            <p data-i18n="quickStart.step1.desc">Any <code>http</code>, <code>https</code>, or <code>file</code> page works.</p>
           </div>
         </div>
         <div class="step">
           <span class="step-num">2</span>
           <div class="step-body">
-            <h3>Open PageHand from the Chrome side panel</h3>
-            <p>Click the PageHand toolbar icon or navigate to the side panel via Chrome's side panel menu.</p>
+            <h3 data-i18n="quickStart.step2.title">Open PageHand from the Chrome side panel</h3>
+            <p data-i18n="quickStart.step2.desc">Click the PageHand toolbar icon or navigate to the side panel via Chrome's side panel menu.</p>
           </div>
         </div>
         <div class="step">
           <span class="step-num">3</span>
           <div class="step-body">
-            <h3>Configure your model provider</h3>
-            <p>Open Settings and enter your API key, base URL, and model name. Any OpenAI-compatible endpoint works.</p>
+            <h3 data-i18n="quickStart.step3.title">Configure your model provider</h3>
+            <p data-i18n="quickStart.step3.desc">Open Settings and enter your API key, base URL, and model name. Any OpenAI-compatible endpoint works.</p>
           </div>
         </div>
         <div class="step">
           <span class="step-num">4</span>
           <div class="step-body">
-            <h3>Try a quick action</h3>
-            <p>Click a pre-built action like "Summarize this page" or type your own question. Turn on script mode to generate a page modification.</p>
+            <h3 data-i18n="quickStart.step4.title">Try a quick action</h3>
+            <p data-i18n="quickStart.step4.desc">Click a pre-built action like "Summarize this page" or type your own question. Turn on script mode to generate a page modification.</p>
           </div>
         </div>
         <div class="step">
           <span class="step-num">5</span>
           <div class="step-body">
-            <h3>Execute, revisit, and refine</h3>
-            <p>Choose a scope (path, exact, or domain), click execute, and revisit the page to confirm the script auto-runs.</p>
+            <h3 data-i18n="quickStart.step5.title">Execute, revisit, and refine</h3>
+            <p data-i18n="quickStart.step5.desc">Choose a scope (path, exact, or domain), click execute, and revisit the page to confirm the script auto-runs.</p>
           </div>
         </div>
       </div>
@@ -435,25 +436,25 @@
   <!-- ======== Model Support ======== -->
   <section class="section">
     <div class="container">
-      <p class="section-label">Model Support</p>
-      <h2 class="section-title">Any OpenAI-compatible endpoint</h2>
-      <p class="section-subtitle">You are not locked to a specific provider. Point PageHand at any compatible API that supports chat completions.</p>
+      <p class="section-label" data-i18n="section.modelSupport">Model Support</p>
+      <h2 class="section-title" data-i18n="modelSupport.title">Any OpenAI-compatible endpoint</h2>
+      <p class="section-subtitle" data-i18n="modelSupport.subtitle">You are not locked to a specific provider. Point PageHand at any compatible API that supports chat completions.</p>
 
       <div class="grid-2">
         <div class="card">
-          <h3>Default configuration</h3>
-          <p style="margin-bottom:12px">DeepSeek is the default example, but any provider works.</p>
+          <h3 data-i18n="modelSupport.card1.title">Default configuration</h3>
+          <p style="margin-bottom:12px" data-i18n="modelSupport.card1.desc">DeepSeek is the default example, but any provider works.</p>
           <pre><code>Base URL: https://api.deepseek.com/v1
 Model:    deepseek-chat
 API Key:  sk-...</code></pre>
         </div>
         <div class="card">
-          <h3>Requirements</h3>
+          <h3 data-i18n="modelSupport.card2.title">Requirements</h3>
           <ul style="padding-left:18px;margin:0;font-size:14px;color:var(--muted);line-height:1.8">
-            <li><code>POST /chat/completions</code> endpoint</li>
-            <li>Bearer-token authentication</li>
-            <li>Regular text + JSON response support</li>
-            <li>Works with self-hosted gateways</li>
+            <li data-i18n="modelSupport.card2.li1"><code>POST /chat/completions</code> endpoint</li>
+            <li data-i18n="modelSupport.card2.li2">Bearer-token authentication</li>
+            <li data-i18n="modelSupport.card2.li3">Regular text + JSON response support</li>
+            <li data-i18n="modelSupport.card2.li4">Works with self-hosted gateways</li>
           </ul>
         </div>
       </div>
@@ -463,22 +464,22 @@ API Key:  sk-...</code></pre>
   <!-- ======== Configuration ======== -->
   <section class="section">
     <div class="container">
-      <p class="section-label">Configuration</p>
-      <h2 class="section-title">Full control from the settings page</h2>
-      <p class="section-subtitle">Every aspect of PageHand is configurable through the options page.</p>
+      <p class="section-label" data-i18n="section.configuration">Configuration</p>
+      <h2 class="section-title" data-i18n="configuration.title">Full control from the settings page</h2>
+      <p class="section-subtitle" data-i18n="configuration.subtitle">Every aspect of PageHand is configurable through the options page.</p>
 
       <div class="grid-3">
         <div class="card">
-          <h3>Connection</h3>
-          <p>API key, base URL, model name, temperature, and max tokens. Test your connection before saving.</p>
+          <h3 data-i18n="configuration.card1.title">Connection</h3>
+          <p data-i18n="configuration.card1.desc">API key, base URL, model name, temperature, and max tokens. Test your connection before saving.</p>
         </div>
         <div class="card">
-          <h3>Behavior</h3>
-          <p>Default script scope (exact, path, or domain), search toggle, and theme mode (light, dark, auto).</p>
+          <h3 data-i18n="configuration.card2.title">Behavior</h3>
+          <p data-i18n="configuration.card2.desc">Default script scope (exact, path, or domain), search toggle, and theme mode (light, dark, auto).</p>
         </div>
         <div class="card">
-          <h3>Customization</h3>
-          <p>Prompt library for reusable templates and site-specific instructions that apply automatically per hostname.</p>
+          <h3 data-i18n="configuration.card3.title">Customization</h3>
+          <p data-i18n="configuration.card3.desc">Prompt library for reusable templates and site-specific instructions that apply automatically per hostname.</p>
         </div>
       </div>
     </div>
@@ -487,20 +488,20 @@ API Key:  sk-...</code></pre>
   <!-- ======== Development ======== -->
   <section class="section">
     <div class="container">
-      <p class="section-label">Development</p>
-      <h2 class="section-title">Build from source</h2>
-      <p class="section-subtitle">PageHand is open source. Clone the repo and start hacking.</p>
+      <p class="section-label" data-i18n="section.development">Development</p>
+      <h2 class="section-title" data-i18n="development.title">Build from source</h2>
+      <p class="section-subtitle" data-i18n="development.subtitle">PageHand is open source. Clone the repo and start hacking.</p>
 
       <div class="grid-2">
         <div class="card">
-          <h3>Setup</h3>
+          <h3 data-i18n="development.card1.title">Setup</h3>
           <pre><code>git clone https://github.com/lwxyfer/pagehand.git
 cd pagehand
 npm install
 npm run dev</code></pre>
         </div>
         <div class="card">
-          <h3>Build &amp; Package</h3>
+          <h3 data-i18n="development.card2.title">Build &amp; Package</h3>
           <pre><code># Type-check
 npm run compile
 
@@ -517,36 +518,36 @@ npm run zip</code></pre>
   <!-- ======== Permissions & Privacy ======== -->
   <section class="section">
     <div class="container">
-      <p class="section-label">Permissions &amp; Privacy</p>
-      <h2 class="section-title">Transparent by design</h2>
-      <p class="section-subtitle">PageHand uses only the Chrome APIs it needs, and your data stays local.</p>
+      <p class="section-label" data-i18n="section.permissions">Permissions &amp; Privacy</p>
+      <h2 class="section-title" data-i18n="permissions.title">Transparent by design</h2>
+      <p class="section-subtitle" data-i18n="permissions.subtitle">PageHand uses only the Chrome APIs it needs, and your data stays local.</p>
 
       <div class="permissions-grid">
         <div class="permission-item">
           <code>sidePanel</code>
-          <p>Chat UI in the Chrome side panel.</p>
+          <p data-i18n="permissions.sidePanel">Chat UI in the Chrome side panel.</p>
         </div>
         <div class="permission-item">
           <code>storage</code>
-          <p>Settings and persistent rules stored locally.</p>
+          <p data-i18n="permissions.storage">Settings and persistent rules stored locally.</p>
         </div>
         <div class="permission-item">
           <code>tabs</code>
-          <p>Current-tab awareness for page context.</p>
+          <p data-i18n="permissions.tabs">Current-tab awareness for page context.</p>
         </div>
         <div class="permission-item">
           <code>scripting</code>
-          <p>Inject the page bridge for context extraction.</p>
+          <p data-i18n="permissions.scripting">Inject the page bridge for context extraction.</p>
         </div>
         <div class="permission-item">
           <code>userScripts</code>
-          <p>Persist and replay generated page scripts.</p>
+          <p data-i18n="permissions.userScripts">Persist and replay generated page scripts.</p>
         </div>
       </div>
 
       <div class="box box-info mt-24">
-        <h4>Privacy</h4>
-        <p>Settings and script rules are stored exclusively in browser storage. Current page content is sent to the configured AI endpoint only when you explicitly ask for analysis or script generation. PageHand does not require a hosted backend to function.</p>
+        <h4 data-i18n="permissions.privacyTitle">Privacy</h4>
+        <p data-i18n="permissions.privacyDesc">Settings and script rules are stored exclusively in browser storage. Current page content is sent to the configured AI endpoint only when you explicitly ask for analysis or script generation. PageHand does not require a hosted backend to function.</p>
       </div>
     </div>
   </section>
@@ -554,34 +555,34 @@ npm run zip</code></pre>
   <!-- ======== Use Cases ======== -->
   <section class="section">
     <div class="container">
-      <p class="section-label">Use Cases</p>
-      <h2 class="section-title">What you can do with PageHand</h2>
-      <p class="section-subtitle">Real workflows that benefit from persistent page scripting.</p>
+      <p class="section-label" data-i18n="section.useCases">Use Cases</p>
+      <h2 class="section-title" data-i18n="useCases.title">What you can do with PageHand</h2>
+      <p class="section-subtitle" data-i18n="useCases.subtitle">Real workflows that benefit from persistent page scripting.</p>
 
       <div class="grid-3">
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
-          <div><p>Clean cluttered articles and focus on the main content.</p></div>
+          <div><p data-i18n="useCases.item1">Clean cluttered articles and focus on the main content.</p></div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
-          <div><p>Add custom reading aids to documentation pages.</p></div>
+          <div><p data-i18n="useCases.item2">Add custom reading aids to documentation pages.</p></div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
-          <div><p>Highlight internal workflow steps on dashboards.</p></div>
+          <div><p data-i18n="useCases.item3">Highlight internal workflow steps on dashboards.</p></div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
-          <div><p>Insert summaries or action cards into repeated work pages.</p></div>
+          <div><p data-i18n="useCases.item4">Insert summaries or action cards into repeated work pages.</p></div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
-          <div><p>Build lightweight augmentations for SaaS tools without userscripts.</p></div>
+          <div><p data-i18n="useCases.item5">Build lightweight augmentations for SaaS tools without userscripts.</p></div>
         </div>
         <div class="highlight-item">
           <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="currentColor"/></svg>
-          <div><p>Translate page content while preserving layout.</p></div>
+          <div><p data-i18n="useCases.item6">Translate page content while preserving layout.</p></div>
         </div>
       </div>
     </div>
@@ -590,18 +591,18 @@ npm run zip</code></pre>
   <!-- ======== Limitations & Safety ======== -->
   <section class="section">
     <div class="container">
-      <p class="section-label">Limitations &amp; Safety</p>
-      <h2 class="section-title">What to know before using</h2>
-      <p class="section-subtitle">PageHand is a powerful tool. Use it responsibly.</p>
+      <p class="section-label" data-i18n="section.limitations">Limitations &amp; Safety</p>
+      <h2 class="section-title" data-i18n="limitations.title">What to know before using</h2>
+      <p class="section-subtitle" data-i18n="limitations.subtitle">PageHand is a powerful tool. Use it responsibly.</p>
 
       <div class="grid-2">
         <div class="box box-info">
-          <h4>Limitations</h4>
-          <p>Chrome internal pages (chrome://) are not supported. Script side effects cannot always be reversed without reloading. Script quality depends on the target DOM and generated code. Currently Chromium-only.</p>
+          <h4 data-i18n="limitations.limitTitle">Limitations</h4>
+          <p data-i18n="limitations.limitDesc">Chrome internal pages (chrome://) are not supported. Script side effects cannot always be reversed without reloading. Script quality depends on the target DOM and generated code. Currently Chromium-only.</p>
         </div>
         <div class="box box-warning">
-          <h4>Safety Notes</h4>
-          <p>Generated scripts are code and should be treated seriously. Avoid script generation on sensitive pages — banking, payment, identity, or production admin systems. Intended for self-use in controlled environments.</p>
+          <h4 data-i18n="limitations.safetyTitle">Safety Notes</h4>
+          <p data-i18n="limitations.safetyDesc">Generated scripts are code and should be treated seriously. Avoid script generation on sensitive pages — banking, payment, identity, or production admin systems. Intended for self-use in controlled environments.</p>
         </div>
       </div>
     </div>
@@ -613,24 +614,200 @@ npm run zip</code></pre>
       <div class="footer-links">
         <a href="https://github.com/lwxyfer/pagehand" target="_blank" rel="noreferrer">GitHub</a>
         <a href="https://github.com/lwxyfer/pagehand/releases/latest" target="_blank" rel="noreferrer">Releases</a>
-        <a href="privacy.html">Privacy</a>
+        <a href="privacy.html" data-i18n="footer.privacy">Privacy</a>
         <a href="https://github.com/lwxyfer/pagehand/blob/main/LICENCE" target="_blank" rel="noreferrer">License</a>
       </div>
       <p class="footer-copy">
         &copy; 2026 PageHand &middot; MIT License &middot;
-        Built with <a href="https://wxt.dev" target="_blank" rel="noreferrer">WXT</a> + React + TypeScript
+        <span data-i18n="footer.builtWith">Built with</span> <a href="https://wxt.dev" target="_blank" rel="noreferrer">WXT</a> + React + TypeScript
       </p>
     </div>
   </footer>
 
-  <!-- ======== Theme Script ======== -->
+  <!-- ======== Theme & I18n Script ======== -->
   <script>
     (function() {
-      const STORAGE_KEY = 'pagehand:landing-theme';
-      const html = document.documentElement;
+      // ---------- translations ----------
+      var TRANSLATIONS = {
+        'nav.features': { en: 'Features', zh: '特性' },
+        'nav.install': { en: 'Install', zh: '安装' },
+        'section.why': { en: 'Why PageHand', zh: '为什么选择 PageHand' },
+        'section.highlights': { en: 'Highlights', zh: '亮点' },
+        'section.howItWorks': { en: 'How It Works', zh: '工作原理' },
+        'section.capabilities': { en: 'Core Capabilities', zh: '核心功能' },
+        'section.principles': { en: 'Product Principles', zh: '产品理念' },
+        'section.installation': { en: 'Installation', zh: '安装指南' },
+        'section.quickStart': { en: 'Quick Start', zh: '快速开始' },
+        'section.modelSupport': { en: 'Model Support', zh: '模型支持' },
+        'section.configuration': { en: 'Configuration', zh: '配置' },
+        'section.development': { en: 'Development', zh: '开发' },
+        'section.permissions': { en: 'Permissions & Privacy', zh: '权限与隐私' },
+        'section.useCases': { en: 'Use Cases', zh: '使用场景' },
+        'section.limitations': { en: 'Limitations & Safety', zh: '限制与安全' },
+        'hero.tagline': { en: 'An AI side panel for injecting dynamic page scripts, reshaping any page on demand, and replaying those changes automatically.', zh: '一个 AI 侧边栏，用于注入动态页面脚本，按需重塑任何页面，并自动回放这些更改。' },
+        'hero.cta': { en: 'Download Latest Release', zh: '下载最新版本' },
+        'hero.sub': { en: 'Free & open source', zh: '免费开源' },
+        'hero.subInstall': { en: '4-step install', zh: '4步安装' },
+        'why.title': { en: 'Most browser AI tools stop at summarization.', zh: '大多数浏览器 AI 工具止步于总结。' },
+        'why.subtitle': { en: 'PageHand goes one step further: read the page, generate a runnable script, execute it from chat, and persist it for automatic replay.', zh: 'PageHand 更进一步：读取页面、生成可执行脚本、从聊天中执行、持久化并自动回放。' },
+        'why.step1.title': { en: 'Read the current page context', zh: '读取当前页面上下文' },
+        'why.step1.desc': { en: 'PageHand extracts the page structure, content, and interactive elements so the model knows exactly what\'s on screen.', zh: 'PageHand 提取页面结构、内容和交互元素，让模型精确了解屏幕上的内容。' },
+        'why.step2.title': { en: 'Generate a runnable script', zh: '生成可执行脚本' },
+        'why.step2.desc': { en: 'Describe the change in natural language. The model generates a self-contained JavaScript snippet tailored to that page.', zh: '用自然语言描述变更，模型会生成一个针对该页面定制的自包含 JavaScript 代码片段。' },
+        'why.step3.title': { en: 'Execute from chat', zh: '从聊天中执行' },
+        'why.step3.desc': { en: 'Review the generated code, choose a persistence scope (exact URL, path, or domain), and inject it into the page instantly.', zh: '审查生成的代码，选择持久化范围（精确 URL、路径或域名），然后立即注入页面。' },
+        'why.step4.title': { en: 'Persist & replay automatically', zh: '持久化并自动回放' },
+        'why.step4.desc': { en: 'The rule is saved locally and registered with <code class="inline-code">chrome.userScripts</code>. It runs automatically on revisit — even across SPA route changes.', zh: '规则保存在本地并通过 <code class="inline-code">chrome.userScripts</code> 注册。再次访问时自动运行 — 即使在 SPA 路由切换后也能执行。' },
+        'highlights.title': { en: 'What makes PageHand different', zh: 'PageHand 的与众不同' },
+        'highlights.subtitle': { en: 'From natural language to persistent page automation in one flow.', zh: '从自然语言到持久化页面自动化，一条流程完成。' },
+        'highlights.item1.title': { en: 'Dynamic page scripts from natural language', zh: '自然语言生成动态页面脚本' },
+        'highlights.item1.desc': { en: 'Generate and execute page-modifying scripts without hand-writing code.', zh: '无需手写代码，生成并执行页面修改脚本。' },
+        'highlights.item2.title': { en: 'Inject UI, remove sections, rewrite content', zh: '注入 UI、移除区域、重写内容' },
+        'highlights.item2.desc': { en: 'Reshape any page on demand — declutter, translate, highlight, or insert custom elements.', zh: '按需重塑任何页面 — 整理、翻译、高亮或插入自定义元素。' },
+        'highlights.item3.title': { en: 'Persist by path, exact, or domain', zh: '按路径、精确 URL 或域名持久化' },
+        'highlights.item3.desc': { en: 'Choose the scope that matches your workflow — from a single URL to an entire site.', zh: '选择符合工作流程的范围 — 从单个 URL 到整个网站。' },
+        'highlights.item4.title': { en: 'Multiple scripts per page', zh: '每页多个脚本' },
+        'highlights.item4.desc': { en: 'Layer multiple rules on the same page. Each runs independently in order.', zh: '在同一个页面上叠加多条规则，每条规则按顺序独立运行。' },
+        'highlights.item5.title': { en: 'SPA-aware replay', zh: 'SPA 感知回放' },
+        'highlights.item5.desc': { en: 'Listens for route transitions in single-page applications and re-runs matching rules automatically.', zh: '监听单页应用中的路由切换，自动重新运行匹配的规则。' },
+        'highlights.item6.title': { en: 'Chat with the current page', zh: '与当前页面对话' },
+        'highlights.item6.desc': { en: 'Ask questions about what\'s on screen instead of starting from a blank LLM session.', zh: '针对屏幕上的内容提问，而不是从空白的 LLM 会话开始。' },
+        'highlights.item7.title': { en: 'Toggle search per message', zh: '每消息可切换搜索' },
+        'highlights.item7.desc': { en: 'Get extra context from DuckDuckGo when you need it, without cluttering every request.', zh: '在需要时从 DuckDuckGo 获取额外上下文，无需让每次请求都携带。' },
+        'highlights.item8.title': { en: 'Active rule inspector', zh: '活动规则检查器' },
+        'highlights.item8.desc': { en: 'See which scripts apply to the current page and enable or disable them instantly.', zh: '查看哪些脚本适用于当前页面，并立即启用或禁用它们。' },
+        'highlights.item9.title': { en: 'Prompt library shortcuts', zh: '提示词库快捷方式' },
+        'highlights.item9.desc': { en: 'Save your most-used prompts for quick reuse — clean layout, translate, highlight, and more.', zh: '保存最常用的提示词以便快速重用 — 清理布局、翻译、高亮等。' },
+        'highlights.item10.title': { en: 'Light, dark, and auto themes', zh: '浅色、深色和自动主题' },
+        'highlights.item10.desc': { en: 'Matches your system preference or lets you choose manually.', zh: '跟随系统偏好或手动选择。' },
+        'howItWorks.title': { en: 'From page to script in one cycle', zh: '从页面到脚本，一个周期完成' },
+        'howItWorks.subtitle': { en: 'PageHand orchestrates a tight loop between the browser, the model, and your page.', zh: 'PageHand 在浏览器、模型和页面之间编排紧密的循环。' },
+        'flow.currentPage': { en: 'Current page', zh: '当前页面' },
+        'flow.contextExtractor': { en: 'Page context extractor', zh: '页面上下文提取器' },
+        'flow.sidePanel': { en: 'PageHand side panel', zh: 'PageHand 侧边栏' },
+        'flow.aiModel': { en: 'AI model API', zh: 'AI 模型 API' },
+        'flow.answerScript': { en: 'Answer or script', zh: '回答或脚本' },
+        'flow.executeInTab': { en: 'Execute in tab', zh: '在标签页中执行' },
+        'flow.persistRule': { en: 'Persist rule', zh: '持久化规则' },
+        'flow.autoRun': { en: 'Auto-run on revisit', zh: '再次访问自动运行' },
+        'capabilities.title': { en: 'Five features that work together', zh: '五大功能协同工作' },
+        'capabilities.subtitle': { en: 'Each capability builds on the one before it — from simple Q&A to persistent page automation.', zh: '每个功能都建立在前一个之上 — 从简单的问答到持久化页面自动化。' },
+        'capabilities.card1.title': { en: '1. Current-page assistant', zh: '1. 当前页面助手' },
+        'capabilities.card1.desc': { en: 'PageHand answers with awareness of the active tab. Ask about what\'s on screen, extract key information, or analyze the page structure.', zh: 'PageHand 感知当前活动标签页来回答问题。询问屏幕上的内容、提取关键信息或分析页面结构。' },
+        'capabilities.card1.li1': { en: 'Summarize the current page', zh: '总结当前页面' },
+        'capabilities.card1.li2': { en: 'Extract facts and data', zh: '提取事实和数据' },
+        'capabilities.card1.li3': { en: 'Identify next actions', zh: '识别后续操作' },
+        'capabilities.card2.title': { en: '2. Script generation mode', zh: '2. 脚本生成模式' },
+        'capabilities.card2.desc': { en: 'Enable script mode to modify the page instead of only answering. The model returns a runnable script with a summary and execution controls.', zh: '启用脚本模式来修改页面，而不仅仅是回答。模型返回可执行脚本，附带摘要和执行控制。' },
+        'capabilities.card2.li1': { en: 'Remove ads and clutter', zh: '移除广告和干扰' },
+        'capabilities.card2.li2': { en: 'Insert summary cards', zh: '插入摘要卡片' },
+        'capabilities.card2.li3': { en: 'Highlight key CTAs', zh: '高亮关键操作按钮' },
+        'capabilities.card2.li4': { en: 'Translate content in place', zh: '原地翻译内容' },
+        'capabilities.card3.title': { en: '3. Persistent page scripting', zh: '3. 持久化页面脚本' },
+        'capabilities.card3.desc': { en: 'After execution, scripts are stored locally and registered with <code class="inline-code">chrome.userScripts</code>. They replay automatically on revisit.', zh: '执行后，脚本存储在本地并通过 <code class="inline-code">chrome.userScripts</code> 注册。再次访问时自动回放。' },
+        'capabilities.card3.li1': { en: 'Automatic replay on revisit', zh: '再次访问自动回放' },
+        'capabilities.card3.li2': { en: 'Reusable site rules', zh: '可重用的站点规则' },
+        'capabilities.card3.li3': { en: 'Layered rules on the same page', zh: '同页面多层规则' },
+        'capabilities.card3.li4': { en: 'No re-prompting needed', zh: '无需重复提示' },
+        'capabilities.card4.title': { en: '4. SPA-aware replay', zh: '4. SPA 感知回放' },
+        'capabilities.card4.desc': { en: 'For single-page applications, PageHand listens for route transitions and re-runs matching rules when the URL changes.', zh: '对于单页应用，PageHand 监听路由切换，在 URL 变化时重新运行匹配的规则。' },
+        'capabilities.card4.li1': { en: 'Monitors pushState/replaceState', zh: '监听 pushState/replaceState' },
+        'capabilities.card4.li2': { en: 'Handles popstate and hashchange', zh: '处理 popstate 和 hashchange' },
+        'capabilities.card4.li3': { en: 'Zero-config for most SPAs', zh: '大多数 SPA 零配置' },
+        'capabilities.card5.title': { en: '5. Active rule visibility', zh: '5. 活动规则可见性' },
+        'capabilities.card5.desc': { en: 'The side panel shows whether the current page has matching scripts and lets you manage them on the spot.', zh: '侧边栏显示当前页面是否有匹配的脚本，并允许你即时管理它们。' },
+        'capabilities.card5.li1': { en: 'Inspect effective status', zh: '查看生效状态' },
+        'capabilities.card5.li2': { en: 'Run a rule immediately', zh: '立即运行规则' },
+        'capabilities.card5.li3': { en: 'Enable or disable with one click', zh: '一键启用或禁用' },
+        'principles.title': { en: 'Designed for real workflows', zh: '为真实工作流而设计' },
+        'principles.subtitle': { en: 'Every decision in PageHand is guided by these principles.', zh: 'PageHand 的每个决策都遵循这些原则。' },
+        'principles.card1.title': { en: 'Chat-first', zh: '对话优先' },
+        'principles.card1.desc': { en: 'The side panel should feel like a normal assistant — not a developer console.', zh: '侧边栏应该像普通的助手 — 而不是开发者控制台。' },
+        'principles.card2.title': { en: 'Minimal friction', zh: '最小阻力' },
+        'principles.card2.desc': { en: 'Search and script mode are simple toggles next to send. No modal dialogs, no complex setup.', zh: '搜索和脚本模式是发送按钮旁的简单开关。没有模态对话框，没有复杂设置。' },
+        'principles.card3.title': { en: 'Personal automation', zh: '个人自动化' },
+        'principles.card3.desc': { en: 'Generated scripts are for self-use and repeated workflows. You own the rules you create.', zh: '生成的脚本供个人使用和重复工作流。你拥有自己创建的规则。' },
+        'principles.card4.title': { en: 'Local ownership', zh: '本地所有' },
+        'principles.card4.desc': { en: 'Settings and rules live in browser storage. No account, no cloud sync, no telemetry.', zh: '设置和规则保存在浏览器存储中。无账户、无云同步、无遥测。' },
+        'principles.card5.title': { en: 'Fast iteration', zh: '快速迭代' },
+        'principles.card5.desc': { en: 'Generate, execute, refine, and keep the result. The feedback loop is seconds, not minutes.', zh: '生成、执行、优化并保留结果。反馈循环只需数秒而非数分钟。' },
+        'installation.title': { en: 'Get started in 4 steps', zh: '4步快速开始' },
+        'installation.subtitle': { en: 'PageHand is a Chrome extension sideloaded from the latest release. No store listing required.', zh: 'PageHand 是一款从最新 Release 侧载的 Chrome 扩展，无需商店上架。' },
+        'installation.step1.title': { en: 'Download the latest release', zh: '下载最新版本' },
+        'installation.step1.desc': { en: 'Download the <code>pagehand-*-chrome.zip</code> asset from <a href="https://github.com/lwxyfer/pagehand/releases/latest" target="_blank" rel="noreferrer">the latest release</a> on GitHub.', zh: '从 GitHub <a href="https://github.com/lwxyfer/pagehand/releases/latest" target="_blank" rel="noreferrer">最新发布</a>下载 <code>pagehand-*-chrome.zip</code> 资源文件。' },
+        'installation.step2.title': { en: 'Extract the zip', zh: '解压文件' },
+        'installation.step2.desc': { en: 'Unzip to any folder on your machine that you can keep in place.', zh: '解压到你机器上任意一个可以保留的文件夹。' },
+        'installation.step3.title': { en: 'Load as unpacked extension', zh: '以解压扩展程序加载' },
+        'installation.step3.desc': { en: 'Open <code>chrome://extensions</code>, enable <strong>Developer Mode</strong>, and click <strong>Load unpacked</strong>. Select the extracted folder.', zh: '打开 <code>chrome://extensions</code>，启用<strong>开发者模式</strong>，点击<strong>加载已解压的扩展程序</strong>。选择解压后的文件夹。' },
+        'installation.step4.title': { en: 'Enable User Scripts', zh: '启用 User Scripts' },
+        'installation.step4.desc': { en: 'In the extension details page, toggle <strong>Allow User Scripts</strong> on. This is required for persistent script replay.', zh: '在扩展详情页面，打开<strong>Allow User Scripts</strong>开关。这对于持久化脚本回放是必需的。' },
+        'quickStart.title': { en: 'From install to first script', zh: '从安装到第一个脚本' },
+        'quickStart.subtitle': { en: 'Once loaded, getting started takes seconds.', zh: '加载完成后，只需几秒即可开始使用。' },
+        'quickStart.step1.title': { en: 'Open a normal page', zh: '打开一个普通页面' },
+        'quickStart.step1.desc': { en: 'Any <code>http</code>, <code>https</code>, or <code>file</code> page works.', zh: '任何 <code>http</code>、<code>https</code> 或 <code>file</code> 页面都可以。' },
+        'quickStart.step2.title': { en: 'Open PageHand from the Chrome side panel', zh: '从 Chrome 侧边栏打开 PageHand' },
+        'quickStart.step2.desc': { en: 'Click the PageHand toolbar icon or navigate to the side panel via Chrome\'s side panel menu.', zh: '点击 PageHand 工具栏图标或通过 Chrome 的侧边栏菜单打开。' },
+        'quickStart.step3.title': { en: 'Configure your model provider', zh: '配置你的模型提供商' },
+        'quickStart.step3.desc': { en: 'Open Settings and enter your API key, base URL, and model name. Any OpenAI-compatible endpoint works.', zh: '打开设置，输入你的 API 密钥、基础 URL 和模型名称。任何兼容 OpenAI 的端点均可使用。' },
+        'quickStart.step4.title': { en: 'Try a quick action', zh: '尝试快捷操作' },
+        'quickStart.step4.desc': { en: 'Click a pre-built action like "Summarize this page" or type your own question. Turn on script mode to generate a page modification.', zh: '点击预设操作如"总结此页面"或输入你自己的问题。开启脚本模式以生成页面修改脚本。' },
+        'quickStart.step5.title': { en: 'Execute, revisit, and refine', zh: '执行、回访和优化' },
+        'quickStart.step5.desc': { en: 'Choose a scope (path, exact, or domain), click execute, and revisit the page to confirm the script auto-runs.', zh: '选择范围（路径、精确 URL 或域名），点击执行，然后重新访问页面确认脚本自动运行。' },
+        'modelSupport.title': { en: 'Any OpenAI-compatible endpoint', zh: '任何兼容 OpenAI 的端点' },
+        'modelSupport.subtitle': { en: 'You are not locked to a specific provider. Point PageHand at any compatible API that supports chat completions.', zh: '你不受限于特定提供商。将 PageHand 指向任何兼容的 chat completions API。' },
+        'modelSupport.card1.title': { en: 'Default configuration', zh: '默认配置' },
+        'modelSupport.card1.desc': { en: 'DeepSeek is the default example, but any provider works.', zh: 'DeepSeek 是默认示例，但任何提供商均可使用。' },
+        'modelSupport.card2.title': { en: 'Requirements', zh: '要求' },
+        'modelSupport.card2.li1': { en: '<code>POST /chat/completions</code> endpoint', zh: '<code>POST /chat/completions</code> 端点' },
+        'modelSupport.card2.li2': { en: 'Bearer-token authentication', zh: 'Bearer 令牌认证' },
+        'modelSupport.card2.li3': { en: 'Regular text + JSON response support', zh: '支持普通文本和 JSON 响应' },
+        'modelSupport.card2.li4': { en: 'Works with self-hosted gateways', zh: '可与自托管网关配合使用' },
+        'configuration.title': { en: 'Full control from the settings page', zh: '从设置页面完全控制' },
+        'configuration.subtitle': { en: 'Every aspect of PageHand is configurable through the options page.', zh: 'PageHand 的每个方面都可以通过选项页面进行配置。' },
+        'configuration.card1.title': { en: 'Connection', zh: '连接' },
+        'configuration.card1.desc': { en: 'API key, base URL, model name, temperature, and max tokens. Test your connection before saving.', zh: 'API 密钥、基础 URL、模型名称、温度和最大令牌数。保存前测试连接。' },
+        'configuration.card2.title': { en: 'Behavior', zh: '行为' },
+        'configuration.card2.desc': { en: 'Default script scope (exact, path, or domain), search toggle, and theme mode (light, dark, auto).', zh: '默认脚本范围（精确 URL、路径或域名）、搜索开关和主题模式（浅色、深色、自动）。' },
+        'configuration.card3.title': { en: 'Customization', zh: '自定义' },
+        'configuration.card3.desc': { en: 'Prompt library for reusable templates and site-specific instructions that apply automatically per hostname.', zh: '提示词库用于可重用模板和按主机名自动应用的站点特定指令。' },
+        'development.title': { en: 'Build from source', zh: '从源码构建' },
+        'development.subtitle': { en: 'PageHand is open source. Clone the repo and start hacking.', zh: 'PageHand 是开源的。克隆仓库并开始探索。' },
+        'development.card1.title': { en: 'Setup', zh: '搭建' },
+        'development.card2.title': { en: 'Build & Package', zh: '构建与打包' },
+        'permissions.title': { en: 'Transparent by design', zh: '设计透明' },
+        'permissions.subtitle': { en: 'PageHand uses only the Chrome APIs it needs, and your data stays local.', zh: 'PageHand 只使用它需要的 Chrome API，你的数据保留在本地。' },
+        'permissions.sidePanel': { en: 'Chat UI in the Chrome side panel.', zh: 'Chrome 侧边栏中的聊天 UI。' },
+        'permissions.storage': { en: 'Settings and persistent rules stored locally.', zh: '设置和持久化规则存储在本地。' },
+        'permissions.tabs': { en: 'Current-tab awareness for page context.', zh: '当前标签页感知，用于页面上下文。' },
+        'permissions.scripting': { en: 'Inject the page bridge for context extraction.', zh: '注入页面桥接器用于上下文提取。' },
+        'permissions.userScripts': { en: 'Persist and replay generated page scripts.', zh: '持久化和回放生成的页面脚本。' },
+        'permissions.privacyTitle': { en: 'Privacy', zh: '隐私' },
+        'permissions.privacyDesc': { en: 'Settings and script rules are stored exclusively in browser storage. Current page content is sent to the configured AI endpoint only when you explicitly ask for analysis or script generation. PageHand does not require a hosted backend to function.', zh: '设置和脚本规则仅存储在浏览器存储中。只有当你明确要求分析或生成脚本时，当前页面内容才会发送到配置的 AI 端点。PageHand 无需托管后端即可运行。' },
+        'useCases.title': { en: 'What you can do with PageHand', zh: '你可以用 PageHand 做什么' },
+        'useCases.subtitle': { en: 'Real workflows that benefit from persistent page scripting.', zh: '受益于持久化页面脚本的真实工作流。' },
+        'useCases.item1': { en: 'Clean cluttered articles and focus on the main content.', zh: '清理杂乱的文章，专注于主要内容。' },
+        'useCases.item2': { en: 'Add custom reading aids to documentation pages.', zh: '为文档页面添加自定义阅读辅助。' },
+        'useCases.item3': { en: 'Highlight internal workflow steps on dashboards.', zh: '在仪表板上高亮内部工作流步骤。' },
+        'useCases.item4': { en: 'Insert summaries or action cards into repeated work pages.', zh: '在重复的工作页面中插入摘要或操作卡片。' },
+        'useCases.item5': { en: 'Build lightweight augmentations for SaaS tools without userscripts.', zh: '为 SaaS 工具构建轻量级增强功能，无需 userscripts。' },
+        'useCases.item6': { en: 'Translate page content while preserving layout.', zh: '翻译页面内容同时保留布局。' },
+        'limitations.title': { en: 'What to know before using', zh: '使用前须知' },
+        'limitations.subtitle': { en: 'PageHand is a powerful tool. Use it responsibly.', zh: 'PageHand 是一个强大的工具，请负责任地使用。' },
+        'limitations.limitTitle': { en: 'Limitations', zh: '局限性' },
+        'limitations.limitDesc': { en: 'Chrome internal pages (chrome://) are not supported. Script side effects cannot always be reversed without reloading. Script quality depends on the target DOM and generated code. Currently Chromium-only.', zh: 'Chrome 内部页面（chrome://）不受支持。脚本副作用不一定能通过重新加载还原。脚本质量取决于目标 DOM 和生成的代码。目前仅支持 Chromium。' },
+        'limitations.safetyTitle': { en: 'Safety Notes', zh: '安全提示' },
+        'limitations.safetyDesc': { en: 'Generated scripts are code and should be treated seriously. Avoid script generation on sensitive pages — banking, payment, identity, or production admin systems. Intended for self-use in controlled environments.', zh: '生成的脚本是代码，应认真对待。避免在敏感页面（银行、支付、身份验证或生产管理系统）上生成脚本。仅供在可控环境中自用。' },
+        'footer.privacy': { en: 'Privacy', zh: '隐私' },
+        'footer.builtWith': { en: 'Built with', zh: '基于' }
+      };
+
+      // ---------- theme ----------
+      var STORAGE_KEY = 'pagehand:landing-theme';
+      var LANG_KEY = 'pagehand:landing-lang';
+      var html = document.documentElement;
 
       function getPreferredTheme() {
-        const stored = localStorage.getItem(STORAGE_KEY);
+        var stored = localStorage.getItem(STORAGE_KEY);
         if (stored === 'light' || stored === 'dark') return stored;
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       }
@@ -642,8 +819,8 @@ npm run zip</code></pre>
       }
 
       function updateIcons(theme) {
-        const sun = document.getElementById('sunIcon');
-        const moon = document.getElementById('moonIcon');
+        var sun = document.getElementById('sunIcon');
+        var moon = document.getElementById('moonIcon');
         if (!sun || !moon) return;
         if (theme === 'dark') {
           sun.style.display = 'none';
@@ -654,8 +831,27 @@ npm run zip</code></pre>
         }
       }
 
+      // ---------- i18n ----------
+      var currentLang = localStorage.getItem(LANG_KEY) || 'en';
+
+      function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem(LANG_KEY, lang);
+        var toggle = document.getElementById('langToggle');
+        if (toggle) toggle.textContent = lang === 'en' ? '中文' : 'English';
+        var els = document.querySelectorAll('[data-i18n]');
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          var key = el.getAttribute('data-i18n');
+          if (key && TRANSLATIONS[key]) {
+            el.innerHTML = TRANSLATIONS[key][lang];
+          }
+        }
+      }
+
       // Initialize
       setTheme(getPreferredTheme());
+      setLanguage(currentLang);
 
       // Listen for OS theme changes
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
@@ -664,10 +860,15 @@ npm run zip</code></pre>
         }
       });
 
-      // Toggle button
+      // Theme toggle button
       document.getElementById('themeToggle').addEventListener('click', function() {
-        const current = html.getAttribute('data-theme');
+        var current = html.getAttribute('data-theme');
         setTheme(current === 'dark' ? 'light' : 'dark');
+      });
+
+      // Language toggle button
+      document.getElementById('langToggle').addEventListener('click', function() {
+        setLanguage(currentLang === 'en' ? 'zh' : 'en');
       });
     })();
   </script>

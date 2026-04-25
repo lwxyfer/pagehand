@@ -43,6 +43,7 @@ export const DEFAULT_SETTINGS: AISettings = {
   temperature: 0.2,
   maxTokens: 1800,
   themeMode: "auto",
+  locale: "zh",
   defaultScope: "path",
   searchEnabled: false,
   searchProvider: "duckduckgo",

@@ -188,6 +188,25 @@ code { font-family: "SFMono-Regular", "JetBrains Mono", monospace; }
   color: var(--text);
 }
 
+.lang-toggle {
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 500;
+  transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+
+.lang-toggle:hover {
+  background: var(--surface-strong);
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+
 .theme-toggle svg {
   width: 16px;
   height: 16px;

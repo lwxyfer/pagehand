@@ -2,13 +2,15 @@ import { type KeyboardEvent, type ReactNode, useEffect, useMemo, useRef, useStat
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { useThemeMode } from "../theme"
+import { useTranslation } from "../useTranslation"
 import type {
   ActiveTabState,
   AssistantMode,
   ConversationMessage,
   GeneratedScriptDraft,
   PageScriptRule,
-  ScriptScope
+  ScriptScope,
+  ThemeMode
 } from "../types"
 
 type QuickAction = {
@@ -93,15 +95,6 @@ const ScriptIcon = () => (
   </svg>
 )
 
-const RefreshIcon = () => (
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <path
-      d="M12 5a7 7 0 0 1 6.41 4.2H16v1.5h5V5.7h-1.5v2.38A8.5 8.5 0 1 0 20.5 12H19a7 7 0 1 1-7-7Z"
-      fill="currentColor"
-    />
-  </svg>
-)
-
 const SettingsIcon = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true">
     <g
@@ -166,25 +159,6 @@ const formatTime = (value: number) =>
   })
 
 const SCOPE_OPTIONS: ScriptScope[] = ["path", "exact", "domain"]
-const QUICK_ACTIONS: QuickAction[] = [
-  {
-    label: "总结当前页面",
-    prompt: "请总结当前页面的核心内容，输出重点摘要。"
-  },
-  {
-    label: "提取关键信息",
-    prompt: "请提取当前页面最重要的事实、数据和结论，并按要点列出。"
-  },
-  {
-    label: "识别下一步动作",
-    prompt: "请识别当前页面里最值得执行的下一步操作，并说明原因。"
-  },
-  {
-    label: "生成页面优化脚本",
-    prompt: "请为当前页面生成一个优化阅读体验的脚本，移除干扰区域并突出正文。",
-    mode: "script"
-  }
-]
 
 const openSettingsPage = async () => {
   await chrome.tabs.create({
@@ -225,8 +199,16 @@ export default function SidepanelApp() {
   const menuRef = useRef<HTMLDivElement | null>(null)
 
   useThemeMode(activeState?.settings.themeMode ?? "auto")
+  const { t, locale } = useTranslation(activeState?.settings.locale)
 
   const activeMode: AssistantMode = scriptMode ? "script" : "analyze"
+
+  const quickActions: QuickAction[] = useMemo(() => [
+    { label: t("sidepanel.qa1.label"), prompt: t("sidepanel.qa1.prompt") },
+    { label: t("sidepanel.qa2.label"), prompt: t("sidepanel.qa2.prompt") },
+    { label: t("sidepanel.qa3.label"), prompt: t("sidepanel.qa3.prompt") },
+    { label: t("sidepanel.qa4.label"), prompt: t("sidepanel.qa4.prompt"), mode: "script" }
+  ], [locale]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const loadActiveState = async () => {
     const state = (await chrome.runtime.sendMessage({
@@ -399,7 +381,7 @@ export default function SidepanelApp() {
         createMessage(
           "assistant",
           "script",
-          "脚本已执行，并已缓存为页面规则。下次进入匹配页面会自动执行。",
+          t("sidepanel.msg.executed"),
           {
             ruleId: response.rule?.id,
             ruleName: response.rule?.name,
@@ -501,10 +483,10 @@ export default function SidepanelApp() {
 
   const currentTabLabel = useMemo(() => {
     if (!activeState?.title) {
-      return "Current tab"
+      return t("sidepanel.currentTab")
     }
     return activeState.title
-  }, [activeState?.title])
+  }, [activeState?.title, locale])
 
   const promptTemplates = activeState?.settings.promptTemplates ?? []
   const enabledRulesCount = activeState?.currentRules.filter((rule) => rule.enabled).length ?? 0
@@ -531,6 +513,7 @@ export default function SidepanelApp() {
     await runPrompt(action.prompt, action.mode ?? "analyze")
   }
 
+
   return (
     <div className="shell shell-chat">
       <div className="chat-layout">
@@ -548,10 +531,7 @@ export default function SidepanelApp() {
           </div>
 
           <div className="icon-row">
-            <IconButton title="刷新当前页面上下文" onClick={() => void loadActiveState()}>
-              <RefreshIcon />
-            </IconButton>
-            <IconButton title="打开设置" onClick={() => void openSettingsPage()}>
+            <IconButton title={t("sidepanel.settings")} onClick={() => void openSettingsPage()}>
               <SettingsIcon />
             </IconButton>
           </div>
@@ -559,13 +539,13 @@ export default function SidepanelApp() {
 
         {!activeState?.userScriptsAvailable ? (
           <div className="banner banner-inline">
-            还没有开启 `Allow User Scripts`。脚本生成和自动执行依赖这个开关。
+            {t("sidepanel.banner.userScripts")}
           </div>
         ) : null}
 
         {!activeState?.settings.apiKey ? (
           <div className="banner banner-inline">
-            还没有配置模型连接。先去设置页填写 API Key。
+            {t("sidepanel.banner.apiKey")}
           </div>
         ) : null}
 
@@ -574,7 +554,7 @@ export default function SidepanelApp() {
         ) : null}
 
         {!activeState?.pageAccessError && activeState && !activeState.pageContextReady ? (
-          <div className="banner banner-inline">正在连接当前页面上下文...</div>
+          <div className="banner banner-inline">{t("sidepanel.banner.connecting")}</div>
         ) : null}
 
         {error ? <div className="banner banner-inline">{error}</div> : null}
@@ -586,9 +566,9 @@ export default function SidepanelApp() {
               type="button"
               onClick={() => setRulesExpanded((current) => !current)}>
               <div className="active-rules-summary">
-                <span className="active-rules-title">当前页脚本</span>
+                <span className="active-rules-title">{t("sidepanel.rules.title")}</span>
                 <span className="active-rules-stats">
-                  生效 {enabledRulesCount} / 共 {activeState.currentRules.length}
+                  {t("sidepanel.rules.active")} {enabledRulesCount} / {activeState.currentRules.length}
                 </span>
               </div>
               <span className="active-rules-chevron">
@@ -608,8 +588,8 @@ export default function SidepanelApp() {
                         <span className="tag">{rule.scope}</span>
                       </div>
                       <div className="active-rule-meta">
-                        <span>{rule.enabled ? "生效中" : "已停用"}</span>
-                        <span>命中 {rule.hitCount}</span>
+                        <span>{rule.enabled ? t("sidepanel.rules.active") : t("sidepanel.rules.disabled")}</span>
+                        <span>{t("sidepanel.rules.hitCount", { n: rule.hitCount })}</span>
                       </div>
                     </div>
 
@@ -617,8 +597,8 @@ export default function SidepanelApp() {
                       <button
                         className="rule-icon-button primary"
                         type="button"
-                        title={!rule.enabled ? "启用并执行" : "立即执行"}
-                        aria-label={!rule.enabled ? "启用并执行" : "立即执行"}
+                        title={!rule.enabled ? t("sidepanel.rules.enableAndRun") : t("sidepanel.rules.runNow")}
+                        aria-label={!rule.enabled ? t("sidepanel.rules.enableAndRun") : t("sidepanel.rules.runNow")}
                         disabled={ruleActionId === rule.id}
                         onClick={() => void runRule(rule, !rule.enabled)}>
                         <PlayIcon />
@@ -626,8 +606,8 @@ export default function SidepanelApp() {
                       <button
                         className="rule-icon-button"
                         type="button"
-                        title={rule.enabled ? "禁用" : "启用"}
-                        aria-label={rule.enabled ? "禁用" : "启用"}
+                        title={rule.enabled ? t("sidepanel.rules.disable") : t("sidepanel.rules.enable")}
+                        aria-label={rule.enabled ? t("sidepanel.rules.disable") : t("sidepanel.rules.enable")}
                         disabled={ruleActionId === rule.id}
                         onClick={() => void toggleRule(rule, !rule.enabled)}>
                         <PowerIcon />
@@ -647,10 +627,10 @@ export default function SidepanelApp() {
                 <SparkIcon />
               </div>
               <div className="empty-caption">
-                {scriptMode ? "脚本模式已开启" : "当前页智能助手"}
+                {scriptMode ? t("sidepanel.empty.scriptMode") : t("sidepanel.empty.assistant")}
               </div>
               <div className="quick-actions">
-                {QUICK_ACTIONS.map((action) => (
+                {quickActions.map((action) => (
                   <button
                     key={action.label}
                     className="quick-action-button"
@@ -672,13 +652,13 @@ export default function SidepanelApp() {
                 return (
                   <article key={message.id} className={`message ${message.role}`}>
                     <div className="message-meta">
-                      <span>{message.role === "user" ? "You" : "Assistant"}</span>
-                      <span>{message.mode === "script" ? "Script" : "Chat"}</span>
+                      <span>{message.role === "user" ? t("sidepanel.msg.you") : t("sidepanel.msg.assistant")}</span>
+                      <span>{message.mode === "script" ? t("common.script") : t("common.chat")}</span>
                       <span>{formatTime(message.createdAt)}</span>
                     </div>
 
                     {isLoading ? (
-                      <div className="loading-message" aria-label="Assistant is thinking">
+                      <div className="loading-message" aria-label={t("sidepanel.msg.thinking")}>
                         <span className="loading-dot" />
                         <span className="loading-dot" />
                         <span className="loading-dot" />
@@ -701,8 +681,15 @@ export default function SidepanelApp() {
 
                     {showExecute ? (
                       <div className="message-actions">
+                        <button
+                          className="execute-button"
+                          type="button"
+                          disabled={executingDraftId === message.id}
+                          onClick={() => void executeDraft(message.id, message.meta!.draft!)}>
+                          {executingDraftId === message.id ? t("sidepanel.msg.executing") : t("sidepanel.msg.execute")}
+                        </button>
                         <select
-                          className="scope-select"
+                          className="scope-text-select"
                           value={message.meta?.scope ?? "path"}
                           onChange={(event) =>
                             updateDraftScope(message.id, event.target.value as ScriptScope)
@@ -713,13 +700,6 @@ export default function SidepanelApp() {
                             </option>
                           ))}
                         </select>
-                        <button
-                          className="execute-button"
-                          type="button"
-                          disabled={executingDraftId === message.id}
-                          onClick={() => void executeDraft(message.id, message.meta!.draft!)}>
-                          {executingDraftId === message.id ? "执行中..." : "执行"}
-                        </button>
                       </div>
                     ) : null}
                   </article>
@@ -738,8 +718,8 @@ export default function SidepanelApp() {
               onKeyDown={onTextareaKeyDown}
               placeholder={
                 scriptMode
-                  ? "描述你希望页面如何被修改"
-                  : "发消息给当前页助手"
+                  ? t("sidepanel.composer.placeholder.script")
+                  : t("sidepanel.composer.placeholder.chat")
               }
             />
 
@@ -747,7 +727,7 @@ export default function SidepanelApp() {
               <div className="icon-row">
                 <div className="composer-menu-wrap" ref={menuRef}>
                   <IconButton
-                    title={menuOpen ? "关闭更多操作" : "更多操作"}
+                    title={menuOpen ? t("sidepanel.composer.close") : t("sidepanel.composer.more")}
                     active={menuOpen}
                     onClick={() => setMenuOpen((current) => !current)}>
                     <PlusIcon />
@@ -760,13 +740,13 @@ export default function SidepanelApp() {
                           className="composer-menu-button"
                           type="button"
                           disabled={promptTemplates.length === 0}>
-                          <span>Library</span>
+                          <span>{t("sidepanel.composer.library")}</span>
                           <span className="composer-menu-arrow">›</span>
                         </button>
 
                         <div className="composer-submenu">
                           {promptTemplates.length === 0 ? (
-                            <div className="composer-submenu-empty">还没有模板</div>
+                            <div className="composer-submenu-empty">{t("sidepanel.composer.noTemplates")}</div>
                           ) : (
                             promptTemplates.map((template) => (
                               <button
@@ -785,13 +765,13 @@ export default function SidepanelApp() {
                 </div>
 
                 <IconButton
-                  title={searchEnabled ? "关闭搜索" : "开启搜索"}
+                  title={searchEnabled ? t("sidepanel.composer.searchOff") : t("sidepanel.composer.searchOn")}
                   active={searchEnabled}
                   onClick={() => setSearchEnabled((current) => !current)}>
                   <SearchIcon />
                 </IconButton>
                 <IconButton
-                  title={scriptMode ? "关闭脚本模式" : "开启脚本模式"}
+                  title={scriptMode ? t("sidepanel.composer.scriptOff") : t("sidepanel.composer.scriptOn")}
                   active={scriptMode}
                   onClick={() => setScriptMode((current) => !current)}>
                   <ScriptIcon />
@@ -799,7 +779,7 @@ export default function SidepanelApp() {
               </div>
 
               <IconButton
-                title={running ? "发送中" : "发送"}
+                title={running ? t("sidepanel.composer.sending") : t("sidepanel.composer.send")}
                 primary
                 disabled={
                   !activeState?.tabId ||
