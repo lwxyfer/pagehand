@@ -1,5 +1,5 @@
 import { DEFAULT_SETTINGS, LEGACY_STORAGE_KEYS, STORAGE_KEYS } from "./constants"
-import type { AISettings, PageScriptRule } from "./types"
+import type { AISettings, ConversationMessage, PageScriptRule } from "./types"
 import { getHostname, matchesRuleForUrl } from "./url"
 
 const readLocal = async <T>(key: string): Promise<T | undefined> => {
@@ -137,4 +137,29 @@ export const recordRuleExecution = async (
     lastRunAt: executedAt,
     lastError: status === "error" ? error || "Unknown error" : undefined
   }))
+}
+
+// ── Per-tab conversation state (in-memory session storage) ──
+
+const SESSION_CONVERSATION_PREFIX = "pagehand:conversation:"
+
+export interface TabConversationState {
+  messages: ConversationMessage[]
+  prompt: string
+  searchEnabled: boolean
+  scriptMode: boolean
+}
+
+export const getTabConversation = async (tabId: number): Promise<TabConversationState> => {
+  const key = SESSION_CONVERSATION_PREFIX + tabId
+  const result = await chrome.storage.session.get(key)
+  return result[key] ?? { messages: [], prompt: "", searchEnabled: false, scriptMode: false }
+}
+
+export const setTabConversation = async (tabId: number, data: TabConversationState) => {
+  await chrome.storage.session.set({ [SESSION_CONVERSATION_PREFIX + tabId]: data })
+}
+
+export const removeTabConversation = async (tabId: number) => {
+  await chrome.storage.session.remove(SESSION_CONVERSATION_PREFIX + tabId)
 }

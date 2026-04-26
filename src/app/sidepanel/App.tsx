@@ -3,6 +3,7 @@ import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { useThemeMode } from "../theme"
 import { useTranslation } from "../useTranslation"
+import { getTabConversation, setTabConversation } from "../storage"
 import type {
   ActiveTabState,
   AssistantMode,
@@ -115,6 +116,18 @@ const SettingsIcon = () => (
   </svg>
 )
 
+const NewChatIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path
+      d="M12 5v14M5 12h14"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeWidth="1.8"
+      fill="none"
+    />
+  </svg>
+)
+
 const SendIcon = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true">
     <path
@@ -197,6 +210,15 @@ export default function SidepanelApp() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [rulesExpanded, setRulesExpanded] = useState(false)
   const menuRef = useRef<HTMLDivElement | null>(null)
+  const activeTabIdRef = useRef<number | null>(null)
+  const messagesRef = useRef(messages)
+  const promptRef = useRef(prompt)
+  const searchEnabledRef = useRef(searchEnabled)
+  const scriptModeRef = useRef(scriptMode)
+  messagesRef.current = messages
+  promptRef.current = prompt
+  searchEnabledRef.current = searchEnabled
+  scriptModeRef.current = scriptMode
 
   useThemeMode(activeState?.settings.themeMode ?? "auto")
   const { t, locale } = useTranslation(activeState?.settings.locale)
@@ -214,8 +236,31 @@ export default function SidepanelApp() {
     const state = (await chrome.runtime.sendMessage({
       type: "ASH_GET_ACTIVE_TAB_STATE"
     })) as ActiveTabState
+
+    const prevTabId = activeTabIdRef.current
+    const newTabId = state.tabId
+
+    // Save current tab's conversation before switching away
+    if (prevTabId !== null && prevTabId !== newTabId) {
+      await setTabConversation(prevTabId, {
+        messages: messagesRef.current,
+        prompt: promptRef.current,
+        searchEnabled: searchEnabledRef.current,
+        scriptMode: scriptModeRef.current
+      })
+    }
+
+    // Load new tab's conversation when switching tabs
+    if (newTabId !== null && newTabId !== prevTabId) {
+      const tabState = await getTabConversation(newTabId)
+      setMessages(tabState.messages)
+      setPrompt(tabState.prompt)
+      setSearchEnabled(tabState.searchEnabled)
+      setScriptMode(tabState.scriptMode)
+    }
+
+    activeTabIdRef.current = newTabId
     setActiveState(state)
-    setSearchEnabled(false)
   }
 
   useEffect(() => {
@@ -251,6 +296,21 @@ export default function SidepanelApp() {
       window.clearInterval(timer)
     }
   }, [activeState?.pageAccessError, activeState?.pageContextReady, activeState?.tabId])
+
+  // Persist conversation state when sidepanel closes (component unmounts)
+  useEffect(() => {
+    return () => {
+      const tabId = activeTabIdRef.current
+      if (tabId !== null) {
+        setTabConversation(tabId, {
+          messages: messagesRef.current,
+          prompt: promptRef.current,
+          searchEnabled: searchEnabledRef.current,
+          scriptMode: scriptModeRef.current
+        })
+      }
+    }
+  }, [])
 
   useEffect(() => {
     if (!menuOpen) {
@@ -513,6 +573,13 @@ export default function SidepanelApp() {
     await runPrompt(action.prompt, action.mode ?? "analyze")
   }
 
+  const newConversation = () => {
+    setMessages([])
+    setPrompt("")
+    setSearchEnabled(false)
+    setScriptMode(false)
+  }
+
 
   return (
     <div className="shell shell-chat">
@@ -531,6 +598,9 @@ export default function SidepanelApp() {
           </div>
 
           <div className="icon-row">
+            <IconButton title={t("sidepanel.newChat")} onClick={() => newConversation()}>
+              <NewChatIcon />
+            </IconButton>
             <IconButton title={t("sidepanel.settings")} onClick={() => void openSettingsPage()}>
               <SettingsIcon />
             </IconButton>

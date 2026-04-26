@@ -12,6 +12,7 @@ function interpolate(template: string, params?: Record<string, string | number>)
 const translations: Record<string, { zh: string; en: string }> = {
   // -- sidepanel: header
   "sidepanel.refresh": { zh: "刷新当前页面上下文", en: "Refresh page context" },
+  "sidepanel.newChat": { zh: "新会话", en: "New conversation" },
   "sidepanel.settings": { zh: "打开设置", en: "Open settings" },
   "sidepanel.theme.light": { zh: "浅色主题", en: "Light theme" },
   "sidepanel.theme.dark": { zh: "深色主题", en: "Dark theme" },

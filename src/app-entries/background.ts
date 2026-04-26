@@ -22,6 +22,7 @@ import {
   getRulesForUrl,
   getSettings,
   recordRuleExecution,
+  removeTabConversation,
   saveSettings,
   sortRulesForExecution,
   updateRule
@@ -507,6 +508,7 @@ export default defineBackground({
 
     chrome.tabs.onRemoved.addListener((tabId) => {
       contentReadyByTab.delete(tabId)
+      removeTabConversation(tabId)
     })
 
     chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
